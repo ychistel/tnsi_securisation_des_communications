@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TP : Méthode Diffie - Hellman &#8212; NSI</title>
+    <title>Chiffrement de Vernam &#8212; NSI</title>
   
   
   
@@ -45,10 +45,12 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_diffie_hellman';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/chiffrement_vernam';</script>
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="La cryptographie symétrique" href="cryptographie_symetrique.html" />
+    <link rel="prev" title="Chiffrement de Vigenère" href="code_vigenere.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -110,8 +112,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -151,10 +151,10 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chiffrement de Vernam</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
 </ul>
 
@@ -210,7 +210,7 @@
       
       
       
-      <li><a href="../_sources/content/tp_diffie_hellman.rst" target="_blank"
+      <li><a href="../_sources/content/chiffrement_vernam.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Télécharger le fichier source"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -281,9 +281,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -294,20 +292,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TP : Méthode Diffie - Hellman</h1>
+    <h1>Chiffrement de Vernam</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contenu </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calcul-d-une-cle-de-chiffrement-commune">Calcul d’une clé de chiffrement commune</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-diffie-hellman-en-python">Méthode Diffie - Hellman en Python</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -317,37 +306,64 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tp-methode-diffie-hellman">
-<h1>TP : Méthode Diffie - Hellman<a class="headerlink" href="#tp-methode-diffie-hellman" title="Link to this heading">#</a></h1>
-<p>La méthode repose sur des calculs mathématiques liés au logarithme discret.</p>
-<p>On se place dans la situation où 2 personnes, Alice et Bob, souhaitent sécuriser leurs échanges en utilisant une clé de chiffrement commune appelée clé partagée.</p>
+  <section id="chiffrement-de-vernam">
+<h1>Chiffrement de Vernam<a class="headerlink" href="#chiffrement-de-vernam" title="Link to this heading">#</a></h1>
+<p>Le chiffrement de Vernam, aussi appelé <strong>masque jetable</strong>, consiste à combiner un message avec une clé de chiffrement en respectant les propriétés suivantes:</p>
 <ul class="simple">
-<li><p>Alice et Bob choisissent en commun 2 nombres <span class="math notranslate nohighlight">\(g\)</span> et <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
-<li><p>Alice choisit un nombre secret appelé <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
-<li><p>Bob choisit un nombre secret appelé <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+<li><p>la clé de chiffrement est aussi longue que le message à chiffrer;</p></li>
+<li><p>la clé est choisie de façon aléatoire;</p></li>
+<li><p>chaque clé n’est utilisée qu’une seule fois d’où le nom de masque jetable.</p></li>
 </ul>
-<section id="calcul-d-une-cle-de-chiffrement-commune">
-<h2>Calcul d’une clé de chiffrement commune<a class="headerlink" href="#calcul-d-une-cle-de-chiffrement-commune" title="Link to this heading">#</a></h2>
-<p>Pour la suite du TP, on décide de fixer <span class="math notranslate nohighlight">\(g = 2\)</span> et <span class="math notranslate nohighlight">\(p = 19\)</span>.</p>
+<p>Ce chiffrement s’applique sur des données en binaire et utilise l’opérateur binaire <code class="docutils literal notranslate"><span class="pre">xor</span></code> qui se note <span class="math notranslate nohighlight">\(\oplus\)</span> et dont voici la table de vérité.</p>
+<table class="table table-center" id="id1">
+<caption><span class="caption-text">table de vérité de XOR</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>X <span class="math notranslate nohighlight">\(\oplus\)</span>Y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
 <ol class="arabic simple">
-<li><p>Alice choisit pour valeur secrète le nombre <span class="math notranslate nohighlight">\(a = 11\)</span>. Elle crée sa clé publique A en effectuant le calcul : <span class="math notranslate nohighlight">\(A = g^a ~\%~ p\)</span>. Quelle est la valeur de A ?</p></li>
-<li><p>Bob choisit pour valeur secrète le nombre <span class="math notranslate nohighlight">\(b = 13\)</span>. Calculer la valeur de la clé publique B de Bob.</p></li>
-<li><p>Bob envoie sa clé publique B à Alice. Avec sa clé secrète, Alice calcule la clé de chiffrement K avec la relation <span class="math notranslate nohighlight">\(K = B^a ~\%~ p\)</span>. Calculer la valeur de K.</p></li>
-<li><p>Bob reçoit la clé publique A d’Alice et calcule aussi la clé de chiffrement K. Vérifier que Bob a la même clé de chiffrement qu’Alice.</p></li>
-<li><p>Recommencer en utilisant des valeurs différentes pour <span class="math notranslate nohighlight">\(g\)</span>, <span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(a\)</span> et <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+<li><p>On considère le message <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0110</span></code> à chiffrer avec la clé <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">1100</span></code>.</p>
+<ol class="loweralpha simple">
+<li><p>Le chiffrement de Vernam peut-il s’appliquer ?</p></li>
+<li><p>En utilisant l’opérateur binaire <code class="docutils literal notranslate"><span class="pre">xor</span></code> bit à bit entre le message <code class="docutils literal notranslate"><span class="pre">m</span></code> et la clé <code class="docutils literal notranslate"><span class="pre">k</span></code>, donner la valeur binaire du message chiffré <code class="docutils literal notranslate"><span class="pre">c</span></code>.</p></li>
 </ol>
-</section>
-<section id="methode-diffie-hellman-en-python">
-<h2>Méthode Diffie - Hellman en Python<a class="headerlink" href="#methode-diffie-hellman-en-python" title="Link to this heading">#</a></h2>
-<p>Avec ce partage de clés entre Alice et Bob, ils sont en capacité de chiffrer leur communication. La clé partagée étant la même, on utilise la cryptographie symétrique.</p>
-<p>Le fichier Python <code class="docutils literal notranslate"><span class="pre">diffie_hellman.py</span></code> permet de reproduire le calcul des clés et l’échange de messages chiffrés. Ce fichier est à récupérer sur l’ENT.</p>
-<p>On rappelle que la fonction python <code class="docutils literal notranslate"><span class="pre">pow</span></code> calcule des puissances : <code class="docutils literal notranslate"><span class="pre">pow(a,b)</span></code> est égal à <span class="math notranslate nohighlight">\(a^b\)</span>.</p>
-<ol class="arabic simple">
-<li><p>Il est possible d’utiliser un troisième paramètre avec la fonction <code class="docutils literal notranslate"><span class="pre">pow</span></code>. Rechercher en quoi il modifie le calcul.</p></li>
-<li><p>Compléter les fonctions <code class="docutils literal notranslate"><span class="pre">cle_publique(g,p,x)</span></code> et <code class="docutils literal notranslate"><span class="pre">cle_chiffrement_partage(x,p,X)</span></code> sur le fichier Python.</p></li>
-<li><p>Le programme principal permet d’effectuer un échange de messages en le chiffrant avec la clé partagée. Compléter ce programme et tester l’échange de messages.</p></li>
+</li>
+<li><p>Chaque lettre est encodé en binaire avec la norme unicode. Les caractères ASCII sont encodés sur 1 octet. On en donne souvent une représentation hexadécimale.</p>
+<ol class="loweralpha simple">
+<li><p>Donner l’encodage binaire sur 3 octets du mot <strong>NSI</strong>.</p></li>
+<li><p>Chiffrer le mot <strong>NSI</strong> en utilisant une clé <code class="docutils literal notranslate"><span class="pre">k=0101...01</span></code> constitué des bits 0 et 1 en alternance sur 3 octets.</p></li>
+<li><p>Retrouver les caractères associés au message chiffré.</p></li>
 </ol>
-</section>
+</li>
+<li><p>L’opérateur <code class="docutils literal notranslate"><span class="pre">xor</span></code> vérifie la propriété suivante: si <span class="math notranslate nohighlight">\(m \oplus k = c\)</span> alors <span class="math notranslate nohighlight">\(c \oplus k = m\)</span>. Vérifier dans les différents chiffrements réalisés précédemment que l’on retrouve le message initial <code class="docutils literal notranslate"><span class="pre">m</span></code> à partir du message <code class="docutils literal notranslate"><span class="pre">chiffré</span></code>.</p></li>
+<li><p>En Python, l’opérateur <code class="docutils literal notranslate"><span class="pre">xor</span></code> est noté par le l’accent circonflexe et s’applique à des nombres entiers. Par conséquent, pour appliquer cet opérateur logique entre deux valeurs, une conversion de la valeur binaire en valeur décimale est nécessaire.</p>
+<ol class="loweralpha simple">
+<li><p>Calculer dans l’interpréteur Python <code class="docutils literal notranslate"><span class="pre">25</span> <span class="pre">^</span> <span class="pre">17</span></code>. Vérifier en binaire la valeur obtenue.</p></li>
+<li><p>Chaque lettre est représentée par une valeur décimale associée à son encodage binaire. Retrouver les valeurs décimales associées aux lettres du mot NSI et vérifier en Python le mot chiffré obtenu.</p></li>
+</ol>
+</li>
+</ol>
 </section>
 
 
@@ -361,6 +377,24 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="code_vigenere.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Chiffrement de Vigenère</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cryptographie_symetrique.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">La cryptographie symétrique</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -368,21 +402,7 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contenu
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calcul-d-une-cle-de-chiffrement-commune">Calcul d’une clé de chiffrement commune</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-diffie-hellman-en-python">Méthode Diffie - Hellman en Python</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

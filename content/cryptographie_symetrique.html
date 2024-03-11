@@ -49,6 +49,7 @@
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="Chiffrement de Vernam" href="chiffrement_vernam.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -110,8 +111,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -151,9 +150,11 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">La cryptographie symétrique</a></li>
 </ul>
 
     </div>
@@ -318,25 +319,25 @@ document.write(`
   <section id="la-cryptographie-symetrique">
 <h1>La cryptographie symétrique<a class="headerlink" href="#la-cryptographie-symetrique" title="Link to this heading">#</a></h1>
 <p>La méhode de chiffrement symétrique utilise une clef qui est la même pour le <strong>chiffrement</strong> et le <strong>déchiffrement</strong>.</p>
-<p class="rubric">Principe</p>
+<p>Les chiffrements par le code César et par le code Vigenère sont symétriques.</p>
+<div class="propriete admonition">
+<p class="admonition-title">Propriété</p>
 <p>La cryptographie symétrique utilise deux fonctions :</p>
 <ul class="simple">
-<li><p>une fonction <span class="math notranslate nohighlight">\(C(m,k)\)</span> pour chiffrer qui prend en argument un message <strong>m</strong> et une clef de chiffrement <strong>k</strong> et renvoie un message chiffré <strong>m”</strong>.</p></li>
-<li><p>une fonction de déchiffrement <span class="math notranslate nohighlight">\(D(m',k)\)</span> qui prend en argument un message chiffré <strong>m”</strong> et la clef de chiffrement <span class="math notranslate nohighlight">\(k\)</span> et renvoie le message déchiffré <strong>m</strong>.</p></li>
+<li><p>une fonction de chiffrement <span class="math notranslate nohighlight">\(C(m,k)\)</span> qui prend en argument un message <strong>m</strong> et une clef de chiffrement <strong>k</strong> et renvoie un message chiffré <strong>c</strong>.</p></li>
+<li><p>une fonction de déchiffrement <span class="math notranslate nohighlight">\(D(c,k)\)</span> qui prend en argument un message chiffré <strong>c</strong> et la clef de chiffrement <span class="math notranslate nohighlight">\(k\)</span> et renvoie le message déchiffré <strong>m</strong>.</p></li>
 </ul>
+</div>
 <section id="chiffrement-de-vernam">
 <h2>Chiffrement de Vernam<a class="headerlink" href="#chiffrement-de-vernam" title="Link to this heading">#</a></h2>
-<p>Le chiffrement de Vernam, aussi appelé <strong>masque jetable</strong>, consiste à combiner un message avec une clé de chiffrement en respectant les trois propriétés suivantes:</p>
+<div class="methode admonition">
+<p class="admonition-title">Méthode</p>
+<p>Le chiffrement de Vernam, aussi appelé <strong>masque jetable</strong>, consiste à combiner un message avec une clé de chiffrement en respectant les propriétés suivantes:</p>
 <ul class="simple">
 <li><p>la clé de chiffrement est aussi longue que le message à chiffrer;</p></li>
 <li><p>la clé est choisie de façon aléatoire;</p></li>
-<li><p>chaque clé n’est utilisé qu’une seule fois d’où le nom de masque jetable.</p></li>
+<li><p>chaque clé n’est utilisée qu’une seule fois d’où le nom de masque jetable.</p></li>
 </ul>
-<p>Si on chiffre manuellement un message, on peut utiliser le chiffrement de Vigenère à partir d’une clé aléatoire aussi longue que le message à chiffrer.</p>
-<div class="admonition-exemple admonition">
-<p class="admonition-title">Exemple</p>
-<p>Supposons que le message à chiffrer soit le mot <code class="docutils literal notranslate"><span class="pre">BONJOUR</span></code>.</p>
-<p>Prenons comme clé de chiffrement aléatoire <code class="docutils literal notranslate"><span class="pre">GYSRNUA</span></code>. On applique la clé au message et on obtient le message chiffré <code class="docutils literal notranslate"><span class="pre">HMFABOR</span></code> selon le principe du chiffrement de Vigenère.</p>
 </div>
 <p>Le chiffrement de Vernam est un chiffrement symétrique puisqu’on utilise la même clé pour chiffrer et déchiffrer le message.</p>
 <p>Si on chiffre numériquement un message avec le chiffement de Vernam, on utilise la fonction logique <code class="docutils literal notranslate"><span class="pre">XOR</span></code> appelée <strong>ou exclusif</strong>.</p>
@@ -369,9 +370,11 @@ document.write(`
 </tr>
 </tbody>
 </table>
-<p>Une propriété intéressante de l’opérateur <strong>XOR</strong> est qu’il est réversible: si <span class="math notranslate nohighlight">\(A \oplus B = C\)</span> alors <span class="math notranslate nohighlight">\(A \oplus C = B\)</span> et <span class="math notranslate nohighlight">\(B \oplus C = A\)</span>.</p>
-<p>Cette propriété permet alors de déchiffrer un message :</p>
-<img alt="msg_chiffre_1.png" class="align-center" src="../_images/msg_chiffre_1.png" />
+<p>Une propriété intéressante de l’opérateur <strong>XOR</strong> est qu’il est réversible: si <span class="math notranslate nohighlight">\(m \oplus k = c\)</span> alors <span class="math notranslate nohighlight">\(c \oplus k = m\)</span>.</p>
+<p>Cette propriété permet alors de déchiffrer un message en utilisant la même clé de chiffrement:</p>
+<figure class="align-center">
+<img alt="msg_chiffre_1.png" src="../_images/msg_chiffre_1.png" />
+</figure>
 <div class="admonition-exemple admonition">
 <p class="admonition-title">Exemple</p>
 <p>La lettre S a pour code décimal <span class="math notranslate nohighlight">\(83\)</span> dans la table ASCII ou UNICODE soit <span class="math notranslate nohighlight">\(0101 0011\)</span> en binaire;</p>
@@ -389,11 +392,12 @@ document.write(`
 </section>
 <section id="faiblesse-de-la-cryptographie-symetrique">
 <h2>Faiblesse de la cryptographie symétrique<a class="headerlink" href="#faiblesse-de-la-cryptographie-symetrique" title="Link to this heading">#</a></h2>
-<p>La cryptographie symétrique est très robuste et même impossible à déchiffrer en théorie si la clef de chiffrement est aussi longue que le message à chiffrer et utilisée une seule fois. En pratique cela n’est pas possible mais on peut tendre vers ces pratiques ce qui rend très sûr le chiffrement.</p>
-<p><strong>Quelle est sa faiblesse ?</strong></p>
-<p>Elle réside dans la transmission de la clef de chiffrement qui est utilisée pour chiffrer et déchiffrer le message. Cela implique, à un instant donné, de transmettre la clef et donc un risque d’interception.</p>
-<p>Pour conclure, les algorithmes de chiffrement symétriques comme AES (Advanced Encryption Standard) reposent sur un chiffrement similaire au chiffrement XOR avec une clef initiale étendue mais pas en la répétant naïvement comme pour Vigenère.</p>
-<p>Ce chiffrement est très sûr et surtout très rapide car l’opérateur <strong>XOR</strong> est directement intégré à l’unité arithmétique des processeurs, ce qui permet de chiffrer des flux instantannément comme l’audio ou la vidéo.</p>
+<p class="rubric">Chiffrement de Vernam</p>
+<p>Le chiffrement de Vernam est très robuste et impossible à déchiffrer en théorie si les conditions sont bien respectées : clef de chiffrement est aussi longue que le message à chiffrer et utilisée une seule fois.</p>
+<p>En pratique cela n’est pas possible ! En effet, il faut utiliser la clé une seule fois, cela implique de transmettre une nouvelle clé à chaque nouveau message. Conclusion, autant donner le message directement.</p>
+<p class="rubric">Faiblesse</p>
+<p>Le principal problème de la cryptographie symétrique est la transmission de la clef de chiffrement qui est utilisée pour chiffrer et déchiffrer le message. Cela implique, à un instant donné, de transmettre la clef et donc un risque d’interception.</p>
+<p>C’est un obstacle qui a été surmonté en utilisant un autre système de cryptographie qui permet de transmettre une clé pour effectuer un chiffrement symétrique.</p>
 </section>
 </section>
 
@@ -408,6 +412,15 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="chiffrement_vernam.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Chiffrement de Vernam</p>
+      </div>
+    </a>
 </div>
                 </footer>
               

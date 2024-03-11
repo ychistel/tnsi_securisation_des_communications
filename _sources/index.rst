@@ -10,7 +10,8 @@ Premier système de cryptographie utilisé par les romains pour protéger leurs 
    
    content/code_cesar.rst
    content/code_vigenere.rst
-   .. content/cryptographie_symetrique.rst
+   content/chiffrement_vernam.rst
+   content/cryptographie_symetrique.rst
    .. content/tp_diffie_hellman.rst
    .. content/tp_openssl.rst
    .. content/tp_rsa.rst

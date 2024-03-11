@@ -152,6 +152,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
 </ul>
 
     </div>
@@ -305,34 +307,33 @@ document.write(`
   <section id="code-cesar">
 <h1>Code César<a class="headerlink" href="#code-cesar" title="Link to this heading">#</a></h1>
 <p>On étudie une méthode de chiffrement de chaines de caractères alphabétiques. Cette méthode de chiffrement est appelée <em>code de César</em>. On considère que les messages ne contiennent que les lettres capitales de l’alphabet <cite>ABCDEFGHIJKLMNOPQRSTUVWXYZ</cite> et la méthode de chiffrement utilise un nombre entier fixé appelé clef de chiffrement.</p>
-<ol class="arabic">
-<li><p>Soit la classe <cite>CodeCesar</cite> définie ci-dessous:</p>
+<p>Soit la classe <cite>CodeCesar</cite> définie ci-dessous:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CodeCesar</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cle</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cle</span> <span class="o">=</span> <span class="n">cle</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alphabet</span> <span class="o">=</span> <span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
+      <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cle</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">cle</span> <span class="o">=</span> <span class="n">cle</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">alphabet</span> <span class="o">=</span> <span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
 
-    <span class="k">def</span> <span class="nf">decale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lettre</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        La méthode renvoie une lettre issue de l&#39;alphabet.</span>
-<span class="sd">        Cette lettre est obtenue à partir de la lettre passée en argument après un décalage égal à la valeur de la clé de chiffrement.</span>
-<span class="sd">        Variables:</span>
-<span class="sd">        - num_1 est la position de la lettre passée en argument dans l&#39;alphabet</span>
-<span class="sd">        - num_2 est la position de la lettre chiffrée après ajout de la clé</span>
-<span class="sd">        - nouvelle_lettre est la lettre chiffrée renvoyée par la fonction; il faut tenir compte de la position de la lettre qui peut être supérieur au nombre de lettres de l&#39;alphabet.</span>
-<span class="sd">        Par exemple, si la lettre passée en argument est &quot;Y&quot; alors num_1 = 24. Si la clé vaut 5 alors num_2 = 29 ce qui ne correspond pas à une lettre de l&#39;alphabet!</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">num_1</span> <span class="o">=</span> <span class="o">...</span>
-        <span class="n">num_2</span> <span class="o">=</span> <span class="n">num_1</span> <span class="o">+</span> <span class="o">...</span>
-        <span class="k">if</span> <span class="n">num_2</span> <span class="o">...</span><span class="p">:</span>
+      <span class="k">def</span> <span class="nf">decale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lettre</span><span class="p">):</span>
+<span class="w">         </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         La méthode renvoie une lettre issue de l&#39;alphabet.</span>
+<span class="sd">         Cette lettre est obtenue à partir de la lettre passée en argument après un décalage égal à la valeur de la clé de chiffrement.</span>
+<span class="sd">         Variables:</span>
+<span class="sd">         - num_1 est la position de la lettre passée en argument dans l&#39;alphabet</span>
+<span class="sd">         - num_2 est la position de la lettre chiffrée après ajout de la clé</span>
+<span class="sd">         - nouvelle_lettre est la lettre chiffrée renvoyée par la fonction; il faut tenir compte de la position de la lettre qui peut être supérieur au nombre de lettres de l&#39;alphabet.</span>
+<span class="sd">         Par exemple, si la lettre passée en argument est &quot;Y&quot; alors num_1 = 24. Si la clé vaut 5 alors num_2 = 29 ce qui ne correspond pas à une lettre de l&#39;alphabet!</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+         <span class="n">num_1</span> <span class="o">=</span> <span class="o">...</span>
+         <span class="n">num_2</span> <span class="o">=</span> <span class="n">num_1</span> <span class="o">+</span> <span class="o">...</span>
+         <span class="k">if</span> <span class="n">num_2</span> <span class="o">...</span><span class="p">:</span>
             <span class="n">num_2</span> <span class="o">=</span> <span class="o">...</span>
-        <span class="n">nouvelle_lettre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alphabet</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">nouvelle_lettre</span>
+         <span class="n">nouvelle_lettre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alphabet</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+         <span class="k">return</span> <span class="n">nouvelle_lettre</span>
 </pre></div>
 </div>
 <p>On rappelle que la méthode <code class="docutils literal notranslate"><span class="pre">str.find(lettre)</span></code> renvoie l’indice (index) de la <code class="docutils literal notranslate"><span class="pre">lettre</span></code> dans la chaine de caractères <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p>
-</li>
+<ol class="arabic">
 <li><p>Représenter le résultat de l’exécution du code Python suivant:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">code_1</span> <span class="o">=</span> <span class="n">CodeCesar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">code_1</span><span class="o">.</span><span class="n">decale</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">))</span>
@@ -340,10 +341,10 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>La méthode de chiffrement du code César consiste à décaler les lettres du message dans l’alphabet d’un nombre  de rangs fixé par la clef. Par exemple, avec la clef 3, toutes les lettres sont décalées de 3 rangs vers la droite : le A devient le D, le B devient le E, etc.</p>
+<li><p>La méthode de chiffrement du code César consiste à décaler les lettres du message dans l’alphabet selon un nombre de rangs fixé par la clef de chiffrement. Par exemple, avec la clef 3, toutes les lettres sont décalées de 3 rangs vers la droite : le A devient le D, le B devient le E, etc.</p>
 <p>Compléter le code de la méthode <code class="docutils literal notranslate"><span class="pre">decale</span></code> et tester son bon fonctionnement.</p>
 </li>
-<li><p>Ajouter la méthode <code class="docutils literal notranslate"><span class="pre">chiffrer(self,</span> <span class="pre">texte)</span></code> dans la classe CodeCesar définie à la question précédente, qui reçoit en paramètre une chaîne de caractères (le message à chiffrer) et qui retourne une chaîne de caractères (le message crypté).</p>
+<li><p>Ajouter la méthode <code class="docutils literal notranslate"><span class="pre">chiffrer(self,</span> <span class="pre">texte)</span></code> dans la classe <code class="docutils literal notranslate"><span class="pre">CodeCesar</span></code> définie à la question précédente, qui reçoit en paramètre une chaîne de caractères (le message à chiffrer) et qui retourne une chaîne de caractères (le message crypté).</p>
 <p>Cette méthode <code class="docutils literal notranslate"><span class="pre">chiffrer(self,</span> <span class="pre">texte)</span></code> doit chiffrer la chaîne texte avec la clef de l’objet de la classe <code class="docutils literal notranslate"><span class="pre">CodeCesar</span></code> qui a été instancié.</p>
 <div class="admonition-exemple admonition">
 <p class="admonition-title">Exemple</p>
@@ -367,17 +368,20 @@ document.write(`
 <ol class="arabic">
 <li><p>On ajoute la méthode <code class="docutils literal notranslate"><span class="pre">transforme(texte)</span></code> à la classe <code class="docutils literal notranslate"><span class="pre">CodeCesar</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">transforme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texte</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cle</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cle</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cle</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cle</span>
     <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chiffrer</span><span class="p">(</span><span class="n">texte</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cle</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cle</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cle</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cle</span>
     <span class="k">return</span> <span class="n">message</span>
 </pre></div>
 </div>
 <p>On exécute la ligne suivante : <code class="docutils literal notranslate"><span class="pre">print(CodeCesar(10).transforme(&quot;PSX&quot;))</span></code></p>
 <p>Que va-t-il s’afficher ? Expliquer votre réponse.</p>
 </li>
-<li><p>La robustesse de cette méthode de chiffrement est très faible. Il est possible de tester toutes les clés possibles pour déchiffrer un message. Écrire un script qui teste toutes les clés possibles et retrouve le message ainsi chiffré.</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>La robustesse de cette méthode de chiffrement est très faible. Il est possible de tester toutes les clés possibles pour déchiffrer un message en sachant qu’il existe 26 clés différentes !</p>
+</div>
 </section>
 
 

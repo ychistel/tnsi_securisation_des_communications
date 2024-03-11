@@ -49,6 +49,7 @@
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Chiffrement de Vernam" href="chiffrement_vernam.html" />
     <link rel="prev" title="Code César" href="code_cesar.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
@@ -153,6 +154,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Chiffrement de Vigenère</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
 </ul>
 
     </div>
@@ -378,9 +381,13 @@ toutes les lettres.</p>
 <li><p>Enfin, à chaque fois qu’une lettre du message est placée au dessus du I, celle ci sera chiffrée en posant un décalage de A à I, B à J, C à K, etc.</p></li>
 </ul>
 <p>On illustre ces décalages par la figure suivante:</p>
-<img alt="vigenere_2.png" class="align-center" src="../_images/vigenere_2.png" />
+<figure class="align-center">
+<img alt="vigenere_2.png" src="../_images/vigenere_2.png" />
+</figure>
 <p>Le mot BONJOUR sera donc chiffré en OGVWGCE</p>
-<img alt="vigenere_1.png" class="align-center" src="../_images/vigenere_1.png" />
+<figure class="align-center">
+<img alt="vigenere_1.png" src="../_images/vigenere_1.png" />
+</figure>
 </div>
 <p class="rubric" id="dechiffrement-et-robustesse">Déchiffrement et robustesse</p>
 <p>Comme le chiffrement de César, il faut réaliser les décalages opposés pour chaque lettre constituant le mot clef.</p>
@@ -407,6 +414,15 @@ toutes les lettres.</p>
         <p class="prev-next-subtitle">précédent</p>
         <p class="prev-next-title">Code César</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="chiffrement_vernam.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Chiffrement de Vernam</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
