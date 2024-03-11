@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TP : Cryptographie RSA &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72851d7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_rsa';</script>
+    <script src="../_static/custom.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Haut de page
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/tp_rsa.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>TP : Cryptographie RSA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrer-un-message">Chiffrer un message</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signer-un-fichier">Signer un fichier</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="tp-cryptographie-rsa">
+<h1>TP : Cryptographie RSA<a class="headerlink" href="#tp-cryptographie-rsa" title="Link to this heading">#</a></h1>
+<p><strong>OpenSSL</strong> est un logiciel de cryptographie qui possède de nombreux algorithmes de chiffrement. OpenSSL est disponible sur les systèmes <strong>windows/linux/mac</strong> et s’utilise en ligne de commandes.</p>
+<p>Voici les commandes que nous allons utiliser:</p>
+<p class="rubric">Générer des clés RSA</p>
+<p>La clé générée est la clé privée. Elle contient des informations sur la clé dont la clé publique.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sans les sauvegarder dans un fichier</span>
+openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span>
+<span class="c1"># Sauvegarde dans un fichier (attention au chemin)</span>
+openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>cle.prv<span class="w"> </span><span class="m">2048</span>
+<span class="c1"># Clé protégée par un mot de passe</span>
+openssl<span class="w"> </span>genrsa<span class="w"> </span>-des3<span class="w"> </span>-out<span class="w"> </span>cle.prv<span class="w"> </span><span class="m">2048</span>
+</pre></div>
+</div>
+<p class="rubric">Afficher sa clé (privée)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>cle.prv
+<span class="c1"># ou</span>
+openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>cle.prv<span class="w"> </span>-text<span class="w"> </span>-noout
+</pre></div>
+</div>
+<p class="rubric">Extraire la clé publique</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sans la sauvegarder dans un fichier</span>
+openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>cle.prv<span class="w"> </span>-pubout
+<span class="c1"># Sauvegarder la clé dans un fichier</span>
+openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>cle.prv<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>cle.pub
+</pre></div>
+</div>
+<p class="rubric">Chiffrer un message avec la clé publique</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chiffrer un message sans sauvegarde</span>
+openssl<span class="w"> </span>rsautl<span class="w"> </span>-encrypt<span class="w"> </span>-pubin<span class="w"> </span>-inkey<span class="w"> </span>cle.pub<span class="w"> </span>-in<span class="w"> </span>fichier_clair
+<span class="c1"># Chiffrer un message sauvegardé dans un fichier</span>
+openssl<span class="w"> </span>rsautl<span class="w"> </span>-encrypt<span class="w"> </span>-pubin<span class="w"> </span>-inkey<span class="w"> </span>cle.pub<span class="w"> </span>-in<span class="w"> </span>fichier_clair<span class="w"> </span>-out<span class="w"> </span>fichier_chiffre
+</pre></div>
+</div>
+<p class="rubric">Déchiffrer un message avec la clé privée</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Déchiffrer un fichier sans sauvegarde</span>
+openssl<span class="w"> </span>rsautl<span class="w"> </span>-decrypt<span class="w"> </span>-inkey<span class="w"> </span>cle.prv<span class="w"> </span>-in<span class="w"> </span>fichier_chiffre
+<span class="c1"># Déchiffrer un fichier sauvegardé dans un fichier</span>
+openssl<span class="w"> </span>rsautl<span class="w"> </span>-decrypt<span class="w"> </span>-inkey<span class="w"> </span>cle.prv<span class="w"> </span>-in<span class="w"> </span>fichier_chiffre<span class="w"> </span>-out<span class="w"> </span>nouveau_fichier_clair
+</pre></div>
+</div>
+<p class="rubric">Signer et vérifier un fichier</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Signer un fichier avec la clé privée</span>
+openssl<span class="w"> </span>rsautl<span class="w"> </span>-sign<span class="w"> </span>-inkey<span class="w"> </span>cle.prv<span class="w"> </span>-in<span class="w"> </span>fichier_clair<span class="w"> </span>-out<span class="w"> </span>fichier_signe
+<span class="c1"># Vérifier la signature avec la clé publique</span>
+openssl<span class="w"> </span>rsautl<span class="w"> </span>-verify<span class="w"> </span>-pubin<span class="w"> </span>-inkey<span class="w"> </span>cle.pub<span class="w"> </span>-in<span class="w"> </span>fichier_signe<span class="w"> </span>-out<span class="w"> </span>nouveau_fichier_clair
+</pre></div>
+</div>
+<section id="chiffrer-un-message">
+<h2>Chiffrer un message<a class="headerlink" href="#chiffrer-un-message" title="Link to this heading">#</a></h2>
+<p>Il est préférable de travailler en binôme et d’échager ses clés publiques. La clé privée doit rester secrète.</p>
+<ol class="arabic simple">
+<li><p>Générer une paire de clés RSA. Elles seront enregistrées dans le fichier <code class="docutils literal notranslate"><span class="pre">cle_prenom.prv</span></code>.</p></li>
+<li><p>Afficher la clé publique et l’enregistrer dans le fichier <code class="docutils literal notranslate"><span class="pre">cle_prenom.pub</span></code>. Échanger vos clés publiques avec votre partenaire de binôme.</p></li>
+<li><p>Créer un message en clair puis chiffrez-le avec la clé publique de votre partenaire. Donner à votre partenaire le message chiffré pour qu’il le déchiffre.</p></li>
+<li><p>Recommencer avec une image de votre choix.</p></li>
+</ol>
+</section>
+<section id="signer-un-fichier">
+<h2>Signer un fichier<a class="headerlink" href="#signer-un-fichier" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Créer un fichier contenant un texte court et une image.</p></li>
+<li><p>Signer votre fichier avec votre clé privée puis transméttez le fichier et sa signature à votre partenaire.</p></li>
+<li><p>Vous avez reçu un fichier et sa signature.</p>
+<ol class="loweralpha">
+<li><p>Déchiffrer la signature.</p></li>
+<li><p>Comparer le fichier reçu et sa signature.</p>
+<p>La commande <code class="docutils literal notranslate"><span class="pre">diff</span> <span class="pre">fichier_1</span> <span class="pre">fichier_2</span></code> permet de comparer 2 fichiers. Si rien ne s’affiche, ils sont identiques, sinon les différences sont affichées.</p>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrer-un-message">Chiffrer un message</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signer-un-fichier">Signer un fichier</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023,Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

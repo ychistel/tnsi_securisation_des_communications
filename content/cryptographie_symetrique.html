@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>La cryptographie symétrique &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72851d7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/cryptographie_symetrique';</script>
+    <script src="../_static/custom.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Haut de page
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/cryptographie_symetrique.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>La cryptographie symétrique</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrement-de-vernam">Chiffrement de Vernam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faiblesse-de-la-cryptographie-symetrique">Faiblesse de la cryptographie symétrique</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="la-cryptographie-symetrique">
+<h1>La cryptographie symétrique<a class="headerlink" href="#la-cryptographie-symetrique" title="Link to this heading">#</a></h1>
+<p>La méhode de chiffrement symétrique utilise une clef qui est la même pour le <strong>chiffrement</strong> et le <strong>déchiffrement</strong>.</p>
+<p class="rubric">Principe</p>
+<p>La cryptographie symétrique utilise deux fonctions :</p>
+<ul class="simple">
+<li><p>une fonction <span class="math notranslate nohighlight">\(C(m,k)\)</span> pour chiffrer qui prend en argument un message <strong>m</strong> et une clef de chiffrement <strong>k</strong> et renvoie un message chiffré <strong>m”</strong>.</p></li>
+<li><p>une fonction de déchiffrement <span class="math notranslate nohighlight">\(D(m',k)\)</span> qui prend en argument un message chiffré <strong>m”</strong> et la clef de chiffrement <span class="math notranslate nohighlight">\(k\)</span> et renvoie le message déchiffré <strong>m</strong>.</p></li>
+</ul>
+<section id="chiffrement-de-vernam">
+<h2>Chiffrement de Vernam<a class="headerlink" href="#chiffrement-de-vernam" title="Link to this heading">#</a></h2>
+<p>Le chiffrement de Vernam, aussi appelé <strong>masque jetable</strong>, consiste à combiner un message avec une clé de chiffrement en respectant les trois propriétés suivantes:</p>
+<ul class="simple">
+<li><p>la clé de chiffrement est aussi longue que le message à chiffrer;</p></li>
+<li><p>la clé est choisie de façon aléatoire;</p></li>
+<li><p>chaque clé n’est utilisé qu’une seule fois d’où le nom de masque jetable.</p></li>
+</ul>
+<p>Si on chiffre manuellement un message, on peut utiliser le chiffrement de Vigenère à partir d’une clé aléatoire aussi longue que le message à chiffrer.</p>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>Supposons que le message à chiffrer soit le mot <code class="docutils literal notranslate"><span class="pre">BONJOUR</span></code>.</p>
+<p>Prenons comme clé de chiffrement aléatoire <code class="docutils literal notranslate"><span class="pre">GYSRNUA</span></code>. On applique la clé au message et on obtient le message chiffré <code class="docutils literal notranslate"><span class="pre">HMFABOR</span></code> selon le principe du chiffrement de Vigenère.</p>
+</div>
+<p>Le chiffrement de Vernam est un chiffrement symétrique puisqu’on utilise la même clé pour chiffrer et déchiffrer le message.</p>
+<p>Si on chiffre numériquement un message avec le chiffement de Vernam, on utilise la fonction logique <code class="docutils literal notranslate"><span class="pre">XOR</span></code> appelée <strong>ou exclusif</strong>.</p>
+<p class="rubric">Chiffrement par XOR</p>
+<p>Le <strong>ou exclusif</strong> ou <strong>XOR</strong> est un opérateur logique noté <span class="math notranslate nohighlight">\(\oplus\)</span>. La table de vérité est:</p>
+<table class="table table-center" id="id1">
+<caption><span class="caption-text">table de vérité de XOR</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>X <span class="math notranslate nohighlight">\(\oplus\)</span>Y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Une propriété intéressante de l’opérateur <strong>XOR</strong> est qu’il est réversible: si <span class="math notranslate nohighlight">\(A \oplus B = C\)</span> alors <span class="math notranslate nohighlight">\(A \oplus C = B\)</span> et <span class="math notranslate nohighlight">\(B \oplus C = A\)</span>.</p>
+<p>Cette propriété permet alors de déchiffrer un message :</p>
+<img alt="msg_chiffre_1.png" class="align-center" src="../_images/msg_chiffre_1.png" />
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>La lettre S a pour code décimal <span class="math notranslate nohighlight">\(83\)</span> dans la table ASCII ou UNICODE soit <span class="math notranslate nohighlight">\(0101 0011\)</span> en binaire;</p>
+<p>La lettre P a pour code décimal <span class="math notranslate nohighlight">\(80\)</span> dans la table ASCII ou UNICODE soit <span class="math notranslate nohighlight">\(0101 0000\)</span> en binaire;</p>
+<p>La valeur <span class="math notranslate nohighlight">\(83 \oplus 80 = 0101 0011 \oplus 0101 0000\)</span> ce qui donne, bit à bit <span class="math notranslate nohighlight">\(0000 0011\)</span> soit 3 en décimal:</p>
+<img alt="ou_exclusif_2.png" class="align-center" src="../_images/ou_exclusif_2.png" />
+<p>Le caractère obtenu est non imprimable et a pour valeur décimale <span class="math notranslate nohighlight">\(3\)</span>.</p>
+</div>
+<p class="rubric">Opérateur XOR en Python</p>
+<p>En Python cet opérateur est noté par le circonflexe et s’applique à des nombres entiers. Par conséquent, pour appliquer cet opérateur logique entre deux valeurs, une conversion de la valeur en décimal est nécessaire.</p>
+<ul class="simple">
+<li><p>Lorsque les valeurs sont nombres entiers, l’opérateur s’applique directement : 3 ^ 4.</p></li>
+<li><p>Lorsque les valeurs sont des caractères quelconques, une conversion du caractère en valeur décimale est nécessaire. Ensuite, le résultat décimal pourra être transformé en caractère. Cela est alors équivalent à l’opération logique XOR avec les écritures binaires.</p></li>
+</ul>
+</section>
+<section id="faiblesse-de-la-cryptographie-symetrique">
+<h2>Faiblesse de la cryptographie symétrique<a class="headerlink" href="#faiblesse-de-la-cryptographie-symetrique" title="Link to this heading">#</a></h2>
+<p>La cryptographie symétrique est très robuste et même impossible à déchiffrer en théorie si la clef de chiffrement est aussi longue que le message à chiffrer et utilisée une seule fois. En pratique cela n’est pas possible mais on peut tendre vers ces pratiques ce qui rend très sûr le chiffrement.</p>
+<p><strong>Quelle est sa faiblesse ?</strong></p>
+<p>Elle réside dans la transmission de la clef de chiffrement qui est utilisée pour chiffrer et déchiffrer le message. Cela implique, à un instant donné, de transmettre la clef et donc un risque d’interception.</p>
+<p>Pour conclure, les algorithmes de chiffrement symétriques comme AES (Advanced Encryption Standard) reposent sur un chiffrement similaire au chiffrement XOR avec une clef initiale étendue mais pas en la répétant naïvement comme pour Vigenère.</p>
+<p>Ce chiffrement est très sûr et surtout très rapide car l’opérateur <strong>XOR</strong> est directement intégré à l’unité arithmétique des processeurs, ce qui permet de chiffrer des flux instantannément comme l’audio ou la vidéo.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrement-de-vernam">Chiffrement de Vernam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faiblesse-de-la-cryptographie-symetrique">Faiblesse de la cryptographie symétrique</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023,Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

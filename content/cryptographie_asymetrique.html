@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>La cryptographie asymétrique &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72851d7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/cryptographie_asymetrique';</script>
+    <script src="../_static/custom.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Haut de page
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/cryptographie_asymetrique.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>La cryptographie asymétrique</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-de-diffie-hellman">Méthode de Diffie-Hellman</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-systeme-rsa">Le système RSA</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="la-cryptographie-asymetrique">
+<h1>La cryptographie asymétrique<a class="headerlink" href="#la-cryptographie-asymetrique" title="Link to this heading">#</a></h1>
+<p>Le chiffrement symétrique est sûr et rapide. Son point faible se situe dans la communication de la clef de chiffrement.</p>
+<p>Pour remédier au problème d’échange de clefs, le chiffrement asymétrique a été créé dans les années 1970 pour communiquer de façon sécurisée sans avoir à échanger de clef de chiffrement.</p>
+<p class="rubric" id="principe">Principe</p>
+<p>Le principe du chiffrement asymétrique repose sur une paire de clefs:</p>
+<ul class="simple">
+<li><p>une clef privée qui doit rester secrète,</p></li>
+<li><p>une clef publique qui est communiquée.</p></li>
+</ul>
+<section id="methode-de-diffie-hellman">
+<h2>Méthode de Diffie-Hellman<a class="headerlink" href="#methode-de-diffie-hellman" title="Link to this heading">#</a></h2>
+<p>La méthode consiste à fabriquer une clef de chiffrement symétrique en utilisant un canal de communication non sécurisé. Lors d’une communication chiffrée entre 2 participants:</p>
+<ul class="simple">
+<li><p>Chaque participant dispose d’une clef privée secrète;</p></li>
+<li><p>Chaque participant crée avec sa clé privée et des paramètres communs une clef publique;</p></li>
+<li><p>Les participants échangent leurs clefs publiques;</p></li>
+<li><p>Chaque participant construit une clé secrète qui sera utilisée pour le chiffrement symétrique de la communication.</p></li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Indication</p>
+<p>La clef de chiffrement symétrique fabriquée par chaque participant est la même. Cela résulte de calculs mathématiques utilisant des nombres premiers.</p>
+</div>
+<p>Alice et Bob souhaitent communiquer en chiffrant leur message. Ils commencent par construire une clef symétrique avec la méthode de Diffie-Hellman. Cela se déroule en plusieurs étapes:</p>
+<a class="reference internal image-reference" href="../_images/diffie-hellman.svg"><img alt="../_images/diffie-hellman.svg" class="align-center" src="../_images/diffie-hellman.svg" width="500px" /></a>
+<ol class="arabic">
+<li><p>Alice et Bob se mettent d’accord sur des paramètres publics communs (générateur et nombre premier).</p></li>
+<li><p>Alice dispose d’une clé privée secrète (a). Bob dispose d’une clé privée secrète (b).</p></li>
+<li><p>Alice crée avec une clé publique (A) avec sa clef privée <span class="math notranslate nohighlight">\(a\)</span> et les paramètres communs publics. Bob crée avec une clé publique (B) avec sa clef privée <span class="math notranslate nohighlight">\(b\)</span> et les paramètres communs publics.</p></li>
+<li><p>Alice et Bob échangent leurs clés publiques.</p></li>
+<li><p>Alice crée avec sa clef privée <span class="math notranslate nohighlight">\(a\)</span> et la clé publique de Bob <span class="math notranslate nohighlight">\(B\)</span> une clé de chiffrement <span class="math notranslate nohighlight">\(K_{A}\)</span>.</p>
+<p>Bob crée avec sa clef privée <span class="math notranslate nohighlight">\(b\)</span> et la clé publique d’Alice <span class="math notranslate nohighlight">\(A\)</span> une clé de chiffement <span class="math notranslate nohighlight">\(K_{B}\)</span>.</p>
+</li>
+<li><p>En fait <span class="math notranslate nohighlight">\(K_{A}=K_{B}=K\)</span>. Donc, Alice et Bob sont en possession d’une clé de chiffrement commune dite clé partagée.</p></li>
+<li><p>Disposant de la même clé <span class="math notranslate nohighlight">\(K\)</span>, ils peuvent communiquer des messages avec un <strong>chiffrement symétrique</strong>.</p></li>
+</ol>
+<p class="rubric" id="analogie-des-pots-de-peinture">Analogie des pots de peinture</p>
+<p>Pour comprendre la méthode de Diffie-Hellman, on la compare au mélange de couleurs de pots de peinture.</p>
+<ul class="simple">
+<li><p>Une couleur publique commune est choisie, par exemple un jaune.</p></li>
+<li><p>Alice choisit une couleur privée, par exemple du bleu. Bob choisit aussi une couleur privée, par exemple du vert.</p></li>
+<li><p>Alice mélange la couleur publique (jaune) avec sa couleur privée (bleu) et on obtient un premier mélange vert kaki.</p></li>
+<li><p>De son côté, Bob mélange la couleur publique (jaune) avec sa couleur privée (vert) et on obtient un mélange vert pistache.</p></li>
+<li><p>Alice et Bob échangent leurs mélanges de couleur.</p></li>
+<li><p>Alice mélange alors le vert pistache envoyé par Bob avec sa couleur privée bleu et Bob de son côté mélange le vert kaki envoyé par Alice avec sa couleur privée vert.</p></li>
+<li><p>Après mélange, Alice et Bob dispose de la même couleur!</p></li>
+</ul>
+<p>Le mélange des trois couleurs donnera la clef commune finale pour le chiffrement symétrique. La robustesse de la méthode s’explique par le fait que lorsqu’on connaît le mélange de 2 couleurs et l’une des 2
+couleurs, il est quasi impossible de retouver exactement la seconde couleur qui a servi à fabriquer le mélange. Seule la multiplication des essais permettrait d’y parvenir.</p>
+<a class="reference internal image-reference" href="../_images/diffie_hellman_couleurs.svg"><img alt="diffie_hellman_couleurs.svg" class="align-center" src="../_images/diffie_hellman_couleurs.svg" width="600px" /></a>
+</section>
+<section id="le-systeme-rsa">
+<h2>Le système RSA<a class="headerlink" href="#le-systeme-rsa" title="Link to this heading">#</a></h2>
+<p>Le système RSA est un chiffrement asymétrique inventé par <strong>Rivest</strong>, <strong>Shamir</strong> et <strong>Adleman</strong> en 1977.</p>
+<p>Ce système repose sur une paire de clefs, une clef publique <span class="math notranslate nohighlight">\(K^{pub}\)</span> et une clef privée <span class="math notranslate nohighlight">\(K^{prv}\)</span>, et sur une fonction de chiffrement par clef qui vérifie les propriétés suivantes:</p>
+<ul class="simple">
+<li><p>On obtient le message initial <span class="math notranslate nohighlight">\(m\)</span> en le chiffrant successivement avec la clef publique et la clef privée : <span class="math notranslate nohighlight">\(K^{pub}(K^{prv}(m)) = K^{prv}(K^{pub}(m)) = m\)</span></p></li>
+<li><p>Il est impossible connaissant le message chiffré de deviner le message initial en clair;</p></li>
+<li><p>Il est impossible connaissant la clef publique d’un participant de deviner sa clef privée.</p></li>
+</ul>
+<p class="rubric">Chiffrement</p>
+<p>La clef publique est utilisée pour chiffrer un message, un fichier. Seule la clé privée peut déchiffre ce message.</p>
+<a class="reference internal image-reference" href="../_images/chiffrement_rsa.svg"><img alt="../_images/chiffrement_rsa.svg" class="align-center" src="../_images/chiffrement_rsa.svg" width="500px" /></a>
+<ol class="arabic simple">
+<li><p>Bob veut envoyer un message chiffré à Alice. Il utilise la clé publique d’Alice pour chiffrer son message.</p></li>
+<li><p>Alice reçoit le message chiffré avec sa clé publique. Elle le déchiffre en utilisant sa clé privée.</p></li>
+<li><p>Si Carlo reçoit aussi le message, il ne pourra pas le déchiffrer.</p></li>
+</ol>
+<p class="rubric">Signature</p>
+<p>Lorsqu’on reçoit un message, rien ne garantit l’origine de celui-ci. Pour s’assurer qu’il a bien été envoyé par la bonne personne, on utilise sa signature électronique.</p>
+<a class="reference internal image-reference" href="../_images/signature.svg"><img alt="signature.svg" class="align-center" src="../_images/signature.svg" width="280px" /></a>
+<ol class="arabic simple">
+<li><p>Alice chiffre un message avec sa <strong>clé privée</strong>. On dit qu’elle <strong>signe</strong> le message.</p></li>
+<li><p>Alice envoie le message et la signature (message chiffré) à Bob.</p></li>
+<li><p>Bob utilise la clé publique d’Alice pour déchiffrer la signature. Il obtient un message qui est comparé avec le message envoyé par Alice. Si c’est le même, il a la garantie que c’est Alice qui lui a envoyé le message.</p></li>
+</ol>
+<p class="rubric" id="echanger-une-clef-symetrique">Échanger une clef symétrique</p>
+<p>La cryptographie RSA peut être utilisée pour échanger une clef de chiffrement symétrique. La clef de chiffrement symétrique choisie par un des participants sera chiffrée avec la paire de clés RSA.</p>
+<ul class="simple">
+<li><p>Alice fabrique une clef de chiffrement symétrique <span class="math notranslate nohighlight">\(k\)</span>;</p></li>
+<li><p>Alice chiffre la clef de chiffrement symétrique <span class="math notranslate nohighlight">\(k\)</span> avec la clef publique de Bob <span class="math notranslate nohighlight">\(K_B^{pub}(k)\)</span>;</p></li>
+<li><p>Bob reçoit la clef chiffrée et la déchiffre avec sa clef privée : <span class="math notranslate nohighlight">\(K_B^{prv}(K_B^{pub}(k))=k\)</span>;</p></li>
+<li><p>Alice et Bob disposent de la même clef de chiffrement symétrique <span class="math notranslate nohighlight">\(k\)</span> et peuvent communiquer de manière sécurisée.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/rsa.svg"><img alt="rsa.svg" class="align-center" src="../_images/rsa.svg" width="560px" /></a>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-de-diffie-hellman">Méthode de Diffie-Hellman</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-systeme-rsa">Le système RSA</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023,Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

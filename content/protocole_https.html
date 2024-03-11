@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sécuriser une communication &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72851d7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/protocole_https';</script>
+    <script src="../_static/custom.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Haut de page
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/protocole_https.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Sécuriser une communication</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#les-certificats">Les certificats</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-https">Protocole HTTPS</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="securiser-une-communication">
+<h1>Sécuriser une communication<a class="headerlink" href="#securiser-une-communication" title="Link to this heading">#</a></h1>
+<p>Les chiffrements, quels qu’ils soient, ne suffisent pas pour sécuriser une communication. De nombreuses personnes sont piégées du fait d’établir une communication avec une personne ou un organisme qui usurpe l’identité de la personne ou de l’organisme souhaité.</p>
+<p>Comment être sûr qu’on communique bien nos données aux bonnes personnes ou bons organismes ?</p>
+<p>Une attaque assez répandue du nom de <strong>l’homme du milieu</strong> (man on the middle) consiste à s’immiscer dans une communication en se faisant passer pour chacun des participants.</p>
+<p>Par exemple, Malory peut se placer entre Alice et Bob dans leur communication en se faisant passer pour Bob lorsqu’il communique avec Alice et se faire passer pour Alice lorsqu’il communique avec Bob.</p>
+<img alt="Homme du milieu" class="align-center" src="../_images/certificat1.png" />
+<p>Pour s’assurer de communiquer avec la bonne personne ou le bon organisme (banque, assurance, médical, commerce,…), on a recourt aux <strong>certificats</strong>.</p>
+<section id="les-certificats">
+<h2>Les certificats<a class="headerlink" href="#les-certificats" title="Link to this heading">#</a></h2>
+<p>Nous disposons d’une carte d’identité sur laquelle figure une photo et des signes de reconnaissance physique. Cette carte est délivrée par un organisme d’état qui certifie de notre identité. La falsification d’une pièce d’identité est punie par la loi. Cette carte, en laquelle on peut avoir toute confiance, permet de nous
+identifier.</p>
+<ul class="simple">
+<li><p>Un <strong>certificat</strong> remplit le même rôle pour un organisme ou une personne qui dispose d’une visibilité numérique. Ce certificat est délivré par un organisme de confiance qui certifie la véritable identité du demandeur. Cet organisme est un <strong>tiers de confiance</strong>.</p></li>
+<li><p>Ces certificats numériques qui attestent de la véritable identité d’une personne ou d’un organisme permettent d’établir une communication sécurisée en confiance.</p></li>
+<li><p>Pour que Bob et Alice soient certains de communiquer en confiance entre eux, Bertille demande la création d’un certificat auprès d’un tiers de confiance nommée Thierry.</p></li>
+<li><p>Albert, Bob et THierry disposent chacun d’une paire de clefs publique et privée pour un chiffrement asymétrique.</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Bob contacte Thierry (tiers de confiance) qui chiffre la clef publique de Bob avec sa clef privée. Il crée ainsi un certificat qui contiendra la clef publique de Bob et des éléments d’authentification (nom, adresse, site web,…). On dit que Thierry <strong>signe</strong> la clef publique de Bob.</p></li>
+<li><p>Alice établit une communication avec Bob qui lui envoie sa clef publique et son certificat.</p></li>
+<li><p>Alice récupère la clef publique de Thierry (tiers de confiance) et déchiffre le certificat envoyé par Bob. Alice en extrait alors la clef publique de Bob qu’elle peut comparer avec la clé publique que Bob a envoyé.</p></li>
+<li><p>Si les clefs publiques sont les mêmes, une communication peut alors s’établir. Sinon, des alertes seront signalées.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/certificat_1.svg"><img alt="Authentification par certificat" class="align-center" src="../_images/certificat_1.svg" width="560" /></a>
+</section>
+<section id="protocole-https">
+<h2>Protocole HTTPS<a class="headerlink" href="#protocole-https" title="Link to this heading">#</a></h2>
+<p>Le protocole HTTPS est un protocole HTTP auquel on ajoute un protocole d’authentification par certificat pour sécuriser la communication sur le web.</p>
+<p class="rubric" id="autorite-de-certification">Autorité de certification</p>
+<p>Une autorité de certification <strong>AC</strong> est un organisme habilitée à délivrer des certificats numériques. Parmi les <strong>AC</strong>, on retouve des entreprises, des associations ou des services de l’état. Cette autorité est un tiers de confiance qui atteste de l’authenticité de l’organisme ou de la personne qui possède le certificat.</p>
+<p class="rubric" id="format-du-certificat">Format du certificat</p>
+<p>Le format standard d’un certificat est le format X.509 qui est un fichier binaire contenant les informations suivantes:</p>
+<ul class="simple">
+<li><p>l’identifiant de l’autorité de certification;</p></li>
+<li><p>l’identifiant de l’organisme ou personne certifiée;</p></li>
+<li><p>la date de validité du certificat;</p></li>
+<li><p>la clef publique de l’organisme ou personne certifiée;</p></li>
+<li><p>la signature du certificat. Il existe trois niveau de certification selon les informations dont dispose l’autorité de certification.</p></li>
+</ul>
+<p class="rubric" id="detail-du-protocole-https">Détail du protocole HTTPS</p>
+<p>Le protocole <strong>HTTPS</strong> est la réunion des protocoles <strong>HTTP</strong> (requête web) et <strong>TLS</strong> (sécurité des communications).</p>
+<p>Le protocole TLS ajoute une phase permettant l’authentification du serveur et la mise en place d’une communication sécurisée avec une clef de chiffrement symétrique appelée <strong>clef de session</strong>. Lorsque
+cette clef de session est connue du client et du serveur, la communication chiffrée peut commencer. Toutes les requêtes sont chiffrées avant envoi et toutes les réponses sont déchiffrées à la reception. La communication est bien sécurisée :</p>
+<ul class="simple">
+<li><p>l’authentification par certificat empêche toute attaque du type homme du milieu;</p></li>
+<li><p>le chiffrement empêche la lecture des contenus lors de la transmission (routeurs, serveurs intermédiaires).</p></li>
+</ul>
+<p>La mise en place de cette communication sécurisée dite <strong>poignée de main TLS</strong> se déroule en 5 étapes:</p>
+<ol class="arabic">
+<li><p>Le client envoie un messge initial au serveur avec des informations le concernant : algorithmes cryptographiques utilisés, navigateur, …</p></li>
+<li><p>Le serveur envoie sa réponse au client contenant le certificat au format X509 signé par une <strong>AC</strong>. Le certificat contient la clef publique du serveur.</p></li>
+<li><p>Le client vérifie le certificat avec la clef publique de l”<strong>AC</strong> et les informations qu’il contient comme la date de validité.</p></li>
+<li><p>Le client et le serveur conviennent d’une clef de session partagée:</p>
+<ul class="simple">
+<li><p>soit en chiffrant une clef choisie par le client avec la clef publique du serveur;</p></li>
+<li><p>soit en utilisant la méthode Diffie-Hellman.</p></li>
+</ul>
+</li>
+<li><p>Le serveur est authentifié par le client et ils ont une clef de session partagée. Ils peuvent échanger des contenus avec le protocole HTTP de façon sécurisée.</p>
+<a class="reference internal image-reference" href="../_images/tls1.png"><img alt="Poignée de main TLS" class="align-center" src="../_images/tls1.png" style="width: 400px;" /></a>
+</li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#les-certificats">Les certificats</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-https">Protocole HTTPS</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023,Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

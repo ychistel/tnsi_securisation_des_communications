@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TP : Protocole HTTPS et Certificat &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72851d7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_https';</script>
+    <script src="../_static/custom.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Haut de page
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/tp_https.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>TP : Protocole HTTPS et Certificat</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaque-dite-homme-du-milieu">Attaque dite « Homme du milieu »</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificat">Certificat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-https">Protocole https</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="tp-protocole-https-et-certificat">
+<h1>TP : Protocole HTTPS et Certificat<a class="headerlink" href="#tp-protocole-https-et-certificat" title="Link to this heading">#</a></h1>
+<section id="attaque-dite-homme-du-milieu">
+<h2>Attaque dite « Homme du milieu »<a class="headerlink" href="#attaque-dite-homme-du-milieu" title="Link to this heading">#</a></h2>
+<p>Bien que les communications soient chiffrées, rien ne garantit que l’on communique avec la bonne personne ou le bon site.</p>
+<p>On suppose qu’Alice et Bob veulent échanger de façon sécurisée. Carlo réussit à intercepter les messages envoyés entre Alice et Bob. On note <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> et <span class="math notranslate nohighlight">\(c\)</span> les clés privées de chacun et <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> et <span class="math notranslate nohighlight">\(C\)</span> leurs clés publiques.</p>
+<ol class="arabic">
+<li><p>Est-il possible pour Carlo de récupérer les clés publiques A et B de Bob et Alice ?</p></li>
+<li><p>Alice envoie un message chiffré à Bob. Est-il possible pour Carlo de le déchiffrer ? Pourquoi ?</p></li>
+<li><p>On donne la figure suivante qui illustre l’attaque dite « homme du milieu ».</p>
+<a class="reference internal image-reference" href="../_images/homme_du_milieu.svg"><img alt="../_images/homme_du_milieu.svg" class="align-center" src="../_images/homme_du_milieu.svg" width="400px" /></a>
+<p>Décrivez les 4 étapes qui vont permettre à Carlo de déchiffrer les messages que Bob et Alice s’échangent.</p>
+</li>
+</ol>
+</section>
+<section id="certificat">
+<h2>Certificat<a class="headerlink" href="#certificat" title="Link to this heading">#</a></h2>
+<p>Un certificat est un fichier qui permet d’assurer de son identité. Les certificats sont créés par des autorités reconnus par les différents acteurs du numérique. La navigation sur le web est sécurisée grâce aux certificats.</p>
+<ol class="arabic">
+<li><p>Connectez-vous au site de l’agence nationale de la sécurité des systèmes d’informations <a class="reference external" href="https://www.ssi.gouv.fr/">ANSSI</a>.</p></li>
+<li><p>Sur la page d’accueil du site, vérifier la présence du cadenas et cliquer dessus pour afficher le certificat.</p></li>
+<li><p>Repérer les informations suivantes:</p>
+<ol class="loweralpha simple">
+<li><p>L’algorithme de chiffrement utilisé pour créer le certificat.</p></li>
+<li><p>La taille de la clé publique.</p></li>
+<li><p>L’autorité qui a émis ce certificat.</p></li>
+<li><p>Les noms de domaines concernés par ce certificat.</p></li>
+</ol>
+</li>
+<li><p>Retrouver les mêmes informations en ligne de commande avec openssl.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>url_du_site:443
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="protocole-https">
+<h2>Protocole https<a class="headerlink" href="#protocole-https" title="Link to this heading">#</a></h2>
+<p>Le protocole HTTPS est l’association du protocole HTTP et du PROTOCOLE SSL/TLS.</p>
+<ul class="simple">
+<li><p>Le protocole HTTP assure l’acheminement des données entre un client et un serveur. Cette transmission de données est basée sur des requêtes selon les méthodes GET ou POST.</p></li>
+<li><p>Le protocole TLS assure le chiffrement des données pour qu’elles ne soient pas lisibles et l’échange de certificats pour s’assurer de la bonne identité du client et du serveur.</p></li>
+</ul>
+<p>Il est possible de mettre en place sur une même machine un serveur WEB et un client pour observer les requêtes du protocole HTTP et même du protocole HTTPS.</p>
+<p class="rubric">Travail préparatoire</p>
+<ol class="arabic simple">
+<li><p>Dans Thonny, vous devez vous assurer de la présence du module <code class="docutils literal notranslate"><span class="pre">flask</span></code> qui permet de créer un serveur WEB et du module <code class="docutils literal notranslate"><span class="pre">pyopenssl</span></code> qui se charge du chiffrement et des certificats du protocole TLS.</p></li>
+<li><p>Créer un dossier de travail <code class="docutils literal notranslate"><span class="pre">protocole</span></code> contenant les dossiers <code class="docutils literal notranslate"><span class="pre">templates</span></code> et <code class="docutils literal notranslate"><span class="pre">static</span></code>.</p></li>
+</ol>
+<p class="rubric">Premier serveur web</p>
+<ol class="arabic">
+<li><p>Créer un fichier Python <code class="docutils literal notranslate"><span class="pre">serveur.py</span></code> contenant le code suivant:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># Création de l&#39;objet Flask (serveur web)</span>
+<span class="linenos"> 4</span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># On définit une route qui renvoie la page index.html</span>
+<span class="linenos"> 7</span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="k">def</span> <span class="nf">accueil</span><span class="p">():</span>
+<span class="linenos"> 9</span>    <span class="k">return</span> <span class="s2">&quot;C&#39;est un serveur web !&quot;</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Lancement du serveur</span>
+<span class="linenos">12</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">13</span>    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Exécuter le fichier <code class="docutils literal notranslate"><span class="pre">serveur.py</span></code> puis ouvrez l’url <code class="docutils literal notranslate"><span class="pre">http://localhost:5000/</span></code> dans un navigateur.</p></li>
+</ol>
+<p class="rubric">Ajouter un fichier HTML</p>
+<ol class="arabic">
+<li><p>Créer, dans le dossier <code class="docutils literal notranslate"><span class="pre">templates</span></code>, une page WEB <code class="docutils literal notranslate"><span class="pre">index.html</span></code> contenant un titre de niveau 1 etun petit paragraphe.</p></li>
+<li><p>Modifier la ligne 9 du fichier Python <code class="docutils literal notranslate"><span class="pre">serveur.py</span></code> par la ligne suivante:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p class="rubric">Protocole TLS</p>
+<p>Le module Flask prend en charge des certificats créés à la volée pour créer rapidement une connexion HTTPS.</p>
+<ol class="arabic">
+<li><p>Ajouter en dernière ligne le paramètre <code class="docutils literal notranslate"><span class="pre">ssl_context='adhoc'</span></code> pour ajouter un protocole TLS au protocole HTTP:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ssl_context</span><span class="o">=</span><span class="s1">&#39;adhoc&#39;</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Relancez votre serveur si nécessaire et actualiser votre page WEB. Attention, on a changé de protocole. Si tout se passe normalement, vous obtenez :</p>
+<img alt="../_images/url_non_securise.png" class="align-center" src="../_images/url_non_securise.png" />
+<a class="reference internal image-reference" href="../_images/risque_securite.png"><img alt="../_images/risque_securite.png" class="align-center" src="../_images/risque_securite.png" style="width: 500px;" /></a>
+<p>Cliquez sur le bouton <code class="docutils literal notranslate"><span class="pre">Avancé...</span></code> puis sur le bouton <code class="docutils literal notranslate"><span class="pre">Accepter</span> <span class="pre">le</span> <span class="pre">risque</span> <span class="pre">et</span> <span class="pre">poursuivre</span></code>.</p>
+</li>
+<li><p>Afficher et identifier votre certificat en donnant le nom du sujet, la validité et l’algorithme de chiffrement.</p></li>
+</ol>
+<p class="rubric">Ajouter son certificat</p>
+<p>Lorsqu’on développe un serveur WEB, il est nécessaire d’avoir son propre certificat. On doit en faire la demande auprès d’une autorité de certification. Comment faire pour créer un certificat et faire des tests ? On crée un certificat dit <strong>auto-signé</strong> avec <code class="docutils literal notranslate"><span class="pre">openssl</span></code>.</p>
+<ol class="arabic">
+<li><p>Avec <code class="docutils literal notranslate"><span class="pre">openssl</span></code>, créer une paire de clefs privée et publique (attention au chemin du dossier):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>key.pem<span class="w"> </span><span class="m">4096</span>
+</pre></div>
+</div>
+</li>
+<li><p>Avec la paire de clefs créée, créer un certificat en utilisant la commande suivante:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-key<span class="w"> </span>key.pem<span class="w"> </span>-out<span class="w"> </span>cert.pem
+</pre></div>
+</div>
+</li>
+<li><p>Actualiser le navigateur et vérifier que le certificat utilisé est bien celui créé précédemment.</p></li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaque-dite-homme-du-milieu">Attaque dite « Homme du milieu »</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificat">Certificat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-https">Protocole https</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023,Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
