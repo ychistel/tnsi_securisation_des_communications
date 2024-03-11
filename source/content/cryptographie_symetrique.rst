@@ -3,29 +3,27 @@ La cryptographie symétrique
 
 La méhode de chiffrement symétrique utilise une clef qui est la même pour le **chiffrement** et le **déchiffrement**.
 
-.. rubric:: Principe
+Les chiffrements par le code César et par le code Vigenère sont symétriques.
 
-La cryptographie symétrique utilise deux fonctions :
+.. admonition:: Propriété
+   :class: propriete
 
--  une fonction :math:`C(m,k)` pour chiffrer qui prend en argument un message **m** et une clef de chiffrement **k** et renvoie un message chiffré **m'**.
--  une fonction de déchiffrement :math:`D(m',k)` qui prend en argument un message chiffré **m'** et la clef de chiffrement :math:`k` et renvoie le message déchiffré **m**.
+   La cryptographie symétrique utilise deux fonctions :
+
+   -  une fonction de chiffrement :math:`C(m,k)` qui prend en argument un message **m** et une clef de chiffrement **k** et renvoie un message chiffré **c**.
+   -  une fonction de déchiffrement :math:`D(c,k)` qui prend en argument un message chiffré **c** et la clef de chiffrement :math:`k` et renvoie le message déchiffré **m**.
 
 Chiffrement de Vernam
 ---------------------
 
-Le chiffrement de Vernam, aussi appelé **masque jetable**, consiste à combiner un message avec une clé de chiffrement en respectant les trois propriétés suivantes:
+.. admonition:: Méthode
+   :class: methode
 
-- la clé de chiffrement est aussi longue que le message à chiffrer;
-- la clé est choisie de façon aléatoire;
-- chaque clé n'est utilisé qu'une seule fois d'où le nom de masque jetable.
+   Le chiffrement de Vernam, aussi appelé **masque jetable**, consiste à combiner un message avec une clé de chiffrement en respectant les propriétés suivantes:
 
-Si on chiffre manuellement un message, on peut utiliser le chiffrement de Vigenère à partir d'une clé aléatoire aussi longue que le message à chiffrer.
-
-.. admonition:: Exemple
-
-   Supposons que le message à chiffrer soit le mot ``BONJOUR``.
-
-   Prenons comme clé de chiffrement aléatoire ``GYSRNUA``. On applique la clé au message et on obtient le message chiffré ``HMFABOR`` selon le principe du chiffrement de Vigenère.
+   - la clé de chiffrement est aussi longue que le message à chiffrer;
+   - la clé est choisie de façon aléatoire;
+   - chaque clé n'est utilisée qu'une seule fois d'où le nom de masque jetable.
 
 Le chiffrement de Vernam est un chiffrement symétrique puisqu'on utilise la même clé pour chiffrer et déchiffrer le message. 
 
@@ -48,11 +46,11 @@ Le **ou exclusif** ou **XOR** est un opérateur logique noté :math:`\oplus`. La
    1 1         0
    = = ===================
 
-Une propriété intéressante de l'opérateur **XOR** est qu'il est réversible: si :math:`A \oplus B = C` alors :math:`A \oplus C = B` et :math:`B \oplus C = A`.
+Une propriété intéressante de l'opérateur **XOR** est qu'il est réversible: si :math:`m \oplus k = c` alors :math:`c \oplus k = m`.
 
-Cette propriété permet alors de déchiffrer un message :
+Cette propriété permet alors de déchiffrer un message en utilisant la même clé de chiffrement:
 
-.. image:: ../img/msg_chiffre_1.png
+.. figure:: ../img/msg_chiffre_1.png
    :alt: msg_chiffre_1.png
    :align: center
 
@@ -80,12 +78,14 @@ En Python cet opérateur est noté par le circonflexe et s'applique à des nombr
 Faiblesse de la cryptographie symétrique
 ----------------------------------------
 
-La cryptographie symétrique est très robuste et même impossible à déchiffrer en théorie si la clef de chiffrement est aussi longue que le message à chiffrer et utilisée une seule fois. En pratique cela n'est pas possible mais on peut tendre vers ces pratiques ce qui rend très sûr le chiffrement.
+.. rubric:: Chiffrement de Vernam
 
-**Quelle est sa faiblesse ?**
+Le chiffrement de Vernam est très robuste et impossible à déchiffrer en théorie si les conditions sont bien respectées : clef de chiffrement est aussi longue que le message à chiffrer et utilisée une seule fois. 
 
-Elle réside dans la transmission de la clef de chiffrement qui est utilisée pour chiffrer et déchiffrer le message. Cela implique, à un instant donné, de transmettre la clef et donc un risque d'interception.
+En pratique cela n'est pas possible ! En effet, il faut utiliser la clé une seule fois, cela implique de transmettre une nouvelle clé à chaque nouveau message. Conclusion, autant donner le message directement.
 
-Pour conclure, les algorithmes de chiffrement symétriques comme AES (Advanced Encryption Standard) reposent sur un chiffrement similaire au chiffrement XOR avec une clef initiale étendue mais pas en la répétant naïvement comme pour Vigenère.
+.. rubric:: Faiblesse
 
-Ce chiffrement est très sûr et surtout très rapide car l'opérateur **XOR** est directement intégré à l'unité arithmétique des processeurs, ce qui permet de chiffrer des flux instantannément comme l'audio ou la vidéo.
+Le principal problème de la cryptographie symétrique est la transmission de la clef de chiffrement qui est utilisée pour chiffrer et déchiffrer le message. Cela implique, à un instant donné, de transmettre la clef et donc un risque d'interception.
+
+C'est un obstacle qui a été surmonté en utilisant un autre système de cryptographie qui permet de transmettre une clé pour effectuer un chiffrement symétrique.

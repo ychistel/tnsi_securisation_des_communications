@@ -89,13 +89,13 @@ Le chiffrement de Vigenère date du XVI siècle et reprend le chiffrement de Cé
 
    On illustre ces décalages par la figure suivante:
 
-   .. image:: ../img/vigenere_2.png
+   .. figure:: ../img/vigenere_2.png
       :alt: vigenere_2.png
       :align: center
 
    Le mot BONJOUR sera donc chiffré en OGVWGCE
 
-   .. image:: ../img/vigenere_1.png
+   .. figure:: ../img/vigenere_1.png
       :alt: vigenere_1.png
       :align: center
 
