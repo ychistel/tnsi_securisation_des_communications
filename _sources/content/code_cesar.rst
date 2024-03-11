@@ -66,8 +66,7 @@ On étudie une méthode de chiffrement de chaines de caractères alphabétiques.
 
       def transforme(self, texte):
           self.cle = -self.cle
-          message = self.chiffrer
-         (texte)
+          message = self.chiffrer(texte)
           self.cle = -self.cle
           return message  
 
