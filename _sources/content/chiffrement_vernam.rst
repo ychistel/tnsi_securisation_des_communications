@@ -27,10 +27,10 @@ Ce chiffrement s'applique sur des données en binaire et utilise l'opérateur bi
     a. Le chiffrement de Vernam peut-il s'appliquer ?
     b. En utilisant l'opérateur binaire ``xor`` bit à bit entre le message ``m`` et la clé ``k``, donner la valeur binaire du message chiffré ``c``.
 
-#.  Chaque lettre est encodé en binaire avec la norme unicode. Les caractères ASCII sont encodés sur 1 octet. On en donne souvent une représentation hexadécimale.
+#.  Chaque lettre est encodée en binaire avec la norme unicode. Les caractères ASCII sont encodés sur 1 octet. On en donne souvent une représentation hexadécimale.
 
     a. Donner l'encodage binaire sur 3 octets du mot **NSI**.
-    b. Chiffrer le mot **NSI** en utilisant une clé ``k=0101...01`` constitué des bits 0 et 1 en alternance sur 3 octets.
+    b. Chiffrer le mot **NSI** en utilisant une clé ``k=0101...01`` constituée des bits 0 et 1 en alternance sur 3 octets.
     c. Retrouver les caractères associés au message chiffré.
 
 #.  L'opérateur ``xor`` vérifie la propriété suivante: si :math:`m \oplus k = c` alors :math:`c \oplus k = m`. Vérifier dans les différents chiffrements réalisés précédemment que l'on retrouve le message initial ``m`` à partir du message ``chiffré``.
