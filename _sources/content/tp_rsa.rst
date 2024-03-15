@@ -1,85 +1,104 @@
 TP : Cryptographie RSA
 ======================
 
-**OpenSSL** est un logiciel de cryptographie qui possède de nombreux algorithmes de chiffrement. OpenSSL est disponible sur les systèmes **windows/linux/mac** et s’utilise en ligne de commandes.
+**OpenSSL** est un logiciel de cryptographie qui possède de nombreux algorithmes de chiffrement. OpenSSL est disponible sur les systèmes **windows/linux/mac** et s'utilise en ligne de commandes.
 
-Voici les commandes que nous allons utiliser:
+Nous allons dans cette activité utiliser la machine virtuelle UBUNTU pour :
 
-.. rubric:: Générer des clés RSA
+-  créer une paire de clés RSA;
+-  signer un message
+-  chiffre et déchiffrer un message
 
-La clé générée est la clé privée. Elle contient des informations sur la clé dont la clé publique.
+Créer une paire de clé RSA
+--------------------------
 
-.. code:: bash
+#. Ouvrir un terminal.
+#. Créer votre paire de clés en saisissant la commande suivante:
 
-   # Sans les sauvegarder dans un fichier
-   openssl genrsa 2048
-   # Sauvegarde dans un fichier (attention au chemin)
-   openssl genrsa -out cle.prv 2048
-   # Clé protégée par un mot de passe
-   openssl genrsa -des3 -out cle.prv 2048
-
-.. rubric:: Afficher sa clé (privée)
-
-.. code:: bash
-
-   openssl rsa -in cle.prv
-   # ou
-   openssl rsa -in cle.prv -text -noout
+   .. code-block:: bash
    
-.. rubric:: Extraire la clé publique
+      # Création des clés RSA
+      openssl genrsa -out cle.prv 2048
 
-.. code:: bash
+#. Afficher la clé générée avec la commande:
 
-   # Sans la sauvegarder dans un fichier
-   openssl rsa -in cle.prv -pubout
-   # Sauvegarder la clé dans un fichier
-   openssl rsa -in cle.prv -pubout -out cle.pub
+   .. code-block:: bash
 
-.. rubric:: Chiffrer un message avec la clé publique
+      cat cle.prv
 
-.. code:: bash
+#. La clé créée contient la clé privée **et** la clé publique. Il faut extraire la clé publique en saisissant la commande suivante en remplaçant ``prenom`` par votre prénom:
 
-   # Chiffrer un message sans sauvegarde
-   openssl rsautl -encrypt -pubin -inkey cle.pub -in fichier_clair
-   # Chiffrer un message sauvegardé dans un fichier
-   openssl rsautl -encrypt -pubin -inkey cle.pub -in fichier_clair -out fichier_chiffre
+   .. code-block:: bash
 
-.. rubric:: Déchiffrer un message avec la clé privée
+      # Sauvegarder la clé dans un fichier
+      openssl rsa -in cle.prv -pubout -out cle_prenom.pub
 
-.. code:: bash
+#. Lister votre dossier et vérifier la présence des fichiers ``cle.prv`` et ``cle_prenom.pub`` contenant les clés avec la commande :
 
-   # Déchiffrer un fichier sans sauvegarde
-   openssl rsautl -decrypt -inkey cle.prv -in fichier_chiffre
-   # Déchiffrer un fichier sauvegardé dans un fichier
-   openssl rsautl -decrypt -inkey cle.prv -in fichier_chiffre -out nouveau_fichier_clair
+   .. code-block:: bash
 
-.. rubric:: Signer et vérifier un fichier
+      ls
 
-.. code:: bash
+#. Afficher votre clé publique avec la commande suivante en remplaçant ``prenom`` par votre prénom:
 
-   # Signer un fichier avec la clé privée
-   openssl rsautl -sign -inkey cle.prv -in fichier_clair -out fichier_signe
-   # Vérifier la signature avec la clé publique
-   openssl rsautl -verify -pubin -inkey cle.pub -in fichier_signe -out nouveau_fichier_clair
+   .. code-block:: bash
 
-Chiffrer un message
----------------------
+      cat cle_prenom.pub
 
-Il est préférable de travailler en binôme et d'échager ses clés publiques. La clé privée doit rester secrète.
+#. Envoyer votre **clé publique** à votre partenaire de binôme en utilisant la messagerie de l'ENT.
+#. Récupérer la **clé publique** de votre partenaire de binôme et l'enregistrer dans le dossier qui contient vos clés.
 
-#. Générer une paire de clés RSA. Elles seront enregistrées dans le fichier ``cle_prenom.prv``.
-#. Afficher la clé publique et l'enregistrer dans le fichier ``cle_prenom.pub``. Échanger vos clés publiques avec votre partenaire de binôme.
-#. Créer un message en clair puis chiffrez-le avec la clé publique de votre partenaire. Donner à votre partenaire le message chiffré pour qu'il le déchiffre.
-#. Recommencer avec une image de votre choix.
+.. warning::
+
+   On vient de créer notre paire de clés RSA. La clé privée est **secrète** et ne doit pas être communiquée.
 
 Signer un fichier
 -----------------
 
-#. Créer un fichier contenant un texte court et une image.
-#. Signer votre fichier avec votre clé privée puis transméttez le fichier et sa signature à votre partenaire.
-#. Vous avez reçu un fichier et sa signature.
+Maintenant que nos clés sont créées, on peut **signer** des messages. Cela permet d'authentifier la source d'un message.
 
-   a. Déchiffrer la signature.
-   b. Comparer le fichier reçu et sa signature. 
+#. Créer dans un éditeur de texte un court message. Enregistrer ce message dans un fichier nommé ``message.txt`` dans le même dossier que vos clés.
+#. Signer le fichier qui contient votre message avec votre clé privée en saisissant la commande suivante en remplaçant ``prenom`` par votre prénom :
 
-      La commande ``diff fichier_1 fichier_2`` permet de comparer 2 fichiers. Si rien ne s'affiche, ils sont identiques, sinon les différences sont affichées.
+   .. code-block:: bash
+
+      # Signer un fichier avec sa clé privée
+      openssl rsautl -sign -inkey cle.prv -in message.txt -out message_prenom_signe
+   
+   Afficher le message signé et vérifier qu'il n'est pas compréhensible.
+
+#. Envoyer via la messagerie de l'ENT votre message signé à votre binôme. 
+#. Récupérer le message signé par votre binôme et l'enregistrer dans le dossier contenant vos clés.
+#. On va maintenant vérifier la **signature** du message signé. Seule la clé publique de la source du message peut le déchiffrer. Saisir la commande suivante :
+
+   .. code-block:: bash
+
+      # Vérifier la signature avec une clé publique
+      openssl rsautl -verify -pubin -inkey cle.pub -in message_prenom_signe
+
+   Si le message s'affiche en clair alors, vous avez l'assurance qu'il provient de votre binôme qui est le seul à pouvoir le signer avec sa clé privée.
+      
+Chiffrer un message
+---------------------
+
+On va communiquer en chiffrant des messages. 
+
+#. Reprendre le message en clair ``message.txt``.
+#. Chiffrer ce message avec la clé publique de votre binôme en saisissant la commande:
+
+   .. code-block:: bash
+      
+      # Chiffrer un message sauvegardé dans un fichier
+      openssl rsautl -encrypt -pubin -inkey cle_prenom.pub -in message.txt -out message_chiffre
+
+   Afficher le message chiffré et vérifier qu'il n'est pas compréhensible.
+   
+#. Envoyer à votre binôme le message chiffré et récupérer son message chiffré en l'enregistrant dans le dossier qui contient vos clés.
+#. Déchiffrer le message avec votre clé privé en saisissant la commande :
+
+   .. code-block:: bash
+      
+      # Déchiffrer un fichier sans sauvegarde
+      openssl rsautl -decrypt -inkey cle.prv -in message_chiffre
+
+#. Recommencer l'échange de messages chiffrés avec une image de votre choix.

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TP : Cryptographie RSA &#8212; NSI</title>
+    <title>Méthode de Diffie-Hellman &#8212; NSI</title>
   
   
   
@@ -43,12 +43,12 @@
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/translations.js?v=d99ca74e"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_rsa';</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/diffie_hellman';</script>
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
-    <link rel="next" title="La cryptographie asymétrique" href="cryptographie_asymetrique.html" />
-    <link rel="prev" title="La cryptographie symétrique" href="cryptographie_symetrique.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -110,6 +110,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -149,12 +151,12 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">TP : Cryptographie RSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp_rsa.html">TP : Cryptographie RSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_asymetrique.html">La cryptographie asymétrique</a></li>
 </ul>
 
@@ -210,7 +212,7 @@
       
       
       
-      <li><a href="../_sources/content/tp_rsa.rst" target="_blank"
+      <li><a href="../_sources/content/diffie_hellman.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Télécharger le fichier source"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -281,9 +283,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -294,21 +294,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TP : Cryptographie RSA</h1>
+    <h1>Méthode de Diffie-Hellman</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contenu </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creer-une-paire-de-cle-rsa">Créer une paire de clé RSA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signer-un-fichier">Signer un fichier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrer-un-message">Chiffrer un message</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -318,99 +308,46 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tp-cryptographie-rsa">
-<h1>TP : Cryptographie RSA<a class="headerlink" href="#tp-cryptographie-rsa" title="Link to this heading">#</a></h1>
-<p><strong>OpenSSL</strong> est un logiciel de cryptographie qui possède de nombreux algorithmes de chiffrement. OpenSSL est disponible sur les systèmes <strong>windows/linux/mac</strong> et s’utilise en ligne de commandes.</p>
-<p>Nous allons dans cette activité utiliser la machine virtuelle UBUNTU pour :</p>
+  <section id="methode-de-diffie-hellman">
+<h1>Méthode de Diffie-Hellman<a class="headerlink" href="#methode-de-diffie-hellman" title="Link to this heading">#</a></h1>
+<p>La méthode consiste à fabriquer une clef de chiffrement symétrique en utilisant un canal de communication non sécurisé. Lors d’une communication chiffrée entre 2 participants:</p>
 <ul class="simple">
-<li><p>créer une paire de clés RSA;</p></li>
-<li><p>signer un message</p></li>
-<li><p>chiffre et déchiffrer un message</p></li>
+<li><p>Chaque participant dispose d’une clef privée secrète;</p></li>
+<li><p>Chaque participant crée avec sa clé privée et des paramètres communs une clef publique;</p></li>
+<li><p>Les participants échangent leurs clefs publiques;</p></li>
+<li><p>Chaque participant construit une clé secrète qui sera utilisée pour le chiffrement symétrique de la communication.</p></li>
 </ul>
-<section id="creer-une-paire-de-cle-rsa">
-<h2>Créer une paire de clé RSA<a class="headerlink" href="#creer-une-paire-de-cle-rsa" title="Link to this heading">#</a></h2>
+<div class="admonition hint">
+<p class="admonition-title">Indication</p>
+<p>La clef de chiffrement symétrique fabriquée par chaque participant est la même. Cela résulte de calculs mathématiques utilisant des nombres premiers.</p>
+</div>
+<p>Alice et Bob souhaitent communiquer en chiffrant leur message. Ils commencent par construire une clef symétrique avec la méthode de Diffie-Hellman. Cela se déroule en plusieurs étapes:</p>
+<a class="reference internal image-reference" href="../_images/diffie-hellman.svg"><img alt="../_images/diffie-hellman.svg" class="align-center" src="../_images/diffie-hellman.svg" width="500px" /></a>
 <ol class="arabic">
-<li><p>Ouvrir un terminal.</p></li>
-<li><p>Créer votre paire de clés en saisissant la commande suivante:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Création des clés RSA</span>
-openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>cle.prv<span class="w"> </span><span class="m">2048</span>
-</pre></div>
-</div>
+<li><p>Alice et Bob se mettent d’accord sur des paramètres publics communs (générateur et nombre premier).</p></li>
+<li><p>Alice dispose d’une clé privée secrète (a). Bob dispose d’une clé privée secrète (b).</p></li>
+<li><p>Alice crée avec une clé publique (A) avec sa clef privée <span class="math notranslate nohighlight">\(a\)</span> et les paramètres communs publics. Bob crée avec une clé publique (B) avec sa clef privée <span class="math notranslate nohighlight">\(b\)</span> et les paramètres communs publics.</p></li>
+<li><p>Alice et Bob échangent leurs clés publiques.</p></li>
+<li><p>Alice crée avec sa clef privée <span class="math notranslate nohighlight">\(a\)</span> et la clé publique de Bob <span class="math notranslate nohighlight">\(B\)</span> une clé de chiffrement <span class="math notranslate nohighlight">\(K_{A}\)</span>.</p>
+<p>Bob crée avec sa clef privée <span class="math notranslate nohighlight">\(b\)</span> et la clé publique d’Alice <span class="math notranslate nohighlight">\(A\)</span> une clé de chiffement <span class="math notranslate nohighlight">\(K_{B}\)</span>.</p>
 </li>
-<li><p>Afficher la clé générée avec la commande:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>cle.prv
-</pre></div>
-</div>
-</li>
-<li><p>La clé créée contient la clé privée <strong>et</strong> la clé publique. Il faut extraire la clé publique en saisissant la commande suivante en remplaçant <code class="docutils literal notranslate"><span class="pre">prenom</span></code> par votre prénom:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sauvegarder la clé dans un fichier</span>
-openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>cle.prv<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>cle_prenom.pub
-</pre></div>
-</div>
-</li>
-<li><p>Lister votre dossier et vérifier la présence des fichiers <code class="docutils literal notranslate"><span class="pre">cle.prv</span></code> et <code class="docutils literal notranslate"><span class="pre">cle_prenom.pub</span></code> contenant les clés avec la commande :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls
-</pre></div>
-</div>
-</li>
-<li><p>Afficher votre clé publique avec la commande suivante en remplaçant <code class="docutils literal notranslate"><span class="pre">prenom</span></code> par votre prénom:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>cle_prenom.pub
-</pre></div>
-</div>
-</li>
-<li><p>Envoyer votre <strong>clé publique</strong> à votre partenaire de binôme en utilisant la messagerie de l’ENT.</p></li>
-<li><p>Récupérer la <strong>clé publique</strong> de votre partenaire de binôme et l’enregistrer dans le dossier qui contient vos clés.</p></li>
+<li><p>En fait <span class="math notranslate nohighlight">\(K_{A}=K_{B}=K\)</span>. Donc, Alice et Bob sont en possession d’une clé de chiffrement commune dite clé partagée.</p></li>
+<li><p>Disposant de la même clé <span class="math notranslate nohighlight">\(K\)</span>, ils peuvent communiquer des messages avec un <strong>chiffrement symétrique</strong>.</p></li>
 </ol>
-<div class="admonition warning">
-<p class="admonition-title">Avertissement</p>
-<p>On vient de créer notre paire de clés RSA. La clé privée est <strong>secrète</strong> et ne doit pas être communiquée.</p>
-</div>
-</section>
-<section id="signer-un-fichier">
-<h2>Signer un fichier<a class="headerlink" href="#signer-un-fichier" title="Link to this heading">#</a></h2>
-<p>Maintenant que nos clés sont créées, on peut <strong>signer</strong> des messages. Cela permet d’authentifier la source d’un message.</p>
-<ol class="arabic">
-<li><p>Créer dans un éditeur de texte un court message. Enregistrer ce message dans un fichier nommé <code class="docutils literal notranslate"><span class="pre">message.txt</span></code> dans le même dossier que vos clés.</p></li>
-<li><p>Signer le fichier qui contient votre message avec votre clé privée en saisissant la commande suivante en remplaçant <code class="docutils literal notranslate"><span class="pre">prenom</span></code> par votre prénom :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Signer un fichier avec sa clé privée</span>
-openssl<span class="w"> </span>rsautl<span class="w"> </span>-sign<span class="w"> </span>-inkey<span class="w"> </span>cle.prv<span class="w"> </span>-in<span class="w"> </span>message.txt<span class="w"> </span>-out<span class="w"> </span>message_prenom_signe
-</pre></div>
-</div>
-<p>Afficher le message signé et vérifier qu’il n’est pas compréhensible.</p>
-</li>
-<li><p>Envoyer via la messagerie de l’ENT votre message signé à votre binôme.</p></li>
-<li><p>Récupérer le message signé par votre binôme et l’enregistrer dans le dossier contenant vos clés.</p></li>
-<li><p>On va maintenant vérifier la <strong>signature</strong> du message signé. Seule la clé publique de la source du message peut le déchiffrer. Saisir la commande suivante :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Vérifier la signature avec une clé publique</span>
-openssl<span class="w"> </span>rsautl<span class="w"> </span>-verify<span class="w"> </span>-pubin<span class="w"> </span>-inkey<span class="w"> </span>cle.pub<span class="w"> </span>-in<span class="w"> </span>message_prenom_signe
-</pre></div>
-</div>
-<p>Si le message s’affiche en clair alors, vous avez l’assurance qu’il provient de votre binôme qui est le seul à pouvoir le signer avec sa clé privée.</p>
-</li>
-</ol>
-</section>
-<section id="chiffrer-un-message">
-<h2>Chiffrer un message<a class="headerlink" href="#chiffrer-un-message" title="Link to this heading">#</a></h2>
-<p>On va communiquer en chiffrant des messages.</p>
-<ol class="arabic">
-<li><p>Reprendre le message en clair <code class="docutils literal notranslate"><span class="pre">message.txt</span></code>.</p></li>
-<li><p>Chiffrer ce message avec la clé publique de votre binôme en saisissant la commande:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chiffrer un message sauvegardé dans un fichier</span>
-openssl<span class="w"> </span>rsautl<span class="w"> </span>-encrypt<span class="w"> </span>-pubin<span class="w"> </span>-inkey<span class="w"> </span>cle_prenom.pub<span class="w"> </span>-in<span class="w"> </span>message.txt<span class="w"> </span>-out<span class="w"> </span>message_chiffre
-</pre></div>
-</div>
-<p>Afficher le message chiffré et vérifier qu’il n’est pas compréhensible.</p>
-</li>
-<li><p>Envoyer à votre binôme le message chiffré et récupérer son message chiffré en l’enregistrant dans le dossier qui contient vos clés.</p></li>
-<li><p>Déchiffrer le message avec votre clé privé en saisissant la commande :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Déchiffrer un fichier sans sauvegarde</span>
-openssl<span class="w"> </span>rsautl<span class="w"> </span>-decrypt<span class="w"> </span>-inkey<span class="w"> </span>cle.prv<span class="w"> </span>-in<span class="w"> </span>message_chiffre
-</pre></div>
-</div>
-</li>
-<li><p>Recommencer l’échange de messages chiffrés avec une image de votre choix.</p></li>
-</ol>
-</section>
+<p class="rubric" id="analogie-des-pots-de-peinture">Analogie des pots de peinture</p>
+<p>Pour comprendre la méthode de Diffie-Hellman, on la compare au mélange de couleurs de pots de peinture.</p>
+<ul class="simple">
+<li><p>Une couleur publique commune est choisie, par exemple un jaune.</p></li>
+<li><p>Alice choisit une couleur privée, par exemple du bleu. Bob choisit aussi une couleur privée, par exemple du vert.</p></li>
+<li><p>Alice mélange la couleur publique (jaune) avec sa couleur privée (bleu) et on obtient un premier mélange vert kaki.</p></li>
+<li><p>De son côté, Bob mélange la couleur publique (jaune) avec sa couleur privée (vert) et on obtient un mélange vert pistache.</p></li>
+<li><p>Alice et Bob échangent leurs mélanges de couleur.</p></li>
+<li><p>Alice mélange alors le vert pistache envoyé par Bob avec sa couleur privée bleu et Bob de son côté mélange le vert kaki envoyé par Alice avec sa couleur privée vert.</p></li>
+<li><p>Après mélange, Alice et Bob dispose de la même couleur!</p></li>
+</ul>
+<p>Le mélange des trois couleurs donnera la clef commune finale pour le chiffrement symétrique. La robustesse de la méthode s’explique par le fait que lorsqu’on connaît le mélange de 2 couleurs et l’une des 2
+couleurs, il est quasi impossible de retouver exactement la seconde couleur qui a servi à fabriquer le mélange. Seule la multiplication des essais permettrait d’y parvenir.</p>
+<a class="reference internal image-reference" href="../_images/diffie_hellman_couleurs.svg"><img alt="diffie_hellman_couleurs.svg" class="align-center" src="../_images/diffie_hellman_couleurs.svg" width="600px" /></a>
 </section>
 
 
@@ -424,24 +361,6 @@ openssl<span class="w"> </span>rsautl<span class="w"> </span>-decrypt<span class
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="cryptographie_symetrique.html"
-       title="page précédente">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">précédent</p>
-        <p class="prev-next-title">La cryptographie symétrique</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="cryptographie_asymetrique.html"
-       title="page suivante">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">suivant</p>
-        <p class="prev-next-title">La cryptographie asymétrique</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -449,22 +368,7 @@ openssl<span class="w"> </span>rsautl<span class="w"> </span>-decrypt<span class
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contenu
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creer-une-paire-de-cle-rsa">Créer une paire de clé RSA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signer-un-fichier">Signer un fichier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrer-un-message">Chiffrer un message</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

@@ -14,7 +14,7 @@ Premier système de cryptographie utilisé par les romains pour protéger leurs 
    content/cryptographie_symetrique.rst
    .. content/tp_diffie_hellman.rst
    .. content/tp_openssl.rst
-   .. content/tp_rsa.rst
-   .. content/cryptographie_asymetrique.rst
+   content/tp_rsa.rst
+   content/cryptographie_asymetrique.rst
    .. content/tp_https.rst
    .. content/protocole_https.rst

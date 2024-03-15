@@ -1,7 +1,7 @@
 TP : openssl
 ==============
 
-**OpenSSL** est un logiciel de cryptographie qui possède de nombreux algorithmes de chiffrement. OpenSSL est disponible sur les systèmes **windows/linux/mac** et s’utilise en ligne de commandes.
+**OpenSSL** est un logiciel de cryptographie qui possède de nombreux algorithmes de chiffrement. OpenSSL est disponible sur les systèmes **windows/linux/mac** et s'utilise en ligne de commandes.
 
 L'encodage d'un fichier peut se réaliser avec différents algorithmes. Un algorithme assez répandu est **base64**. Voici les commandes à utiliser.
 
@@ -78,6 +78,6 @@ Sur le web, dans le code source des pages html, il arrive d’avoir des images e
 Chiffrement symétrique
 ----------------------
 
-#. Encoder votre message avec l’algorithme **des3** en utilisant le mot de passe *encoder*. Vous enregistrerez le fichier chiffré sous le nom `message.des3`. 
+#. Encoder votre message avec l'algorithme **des3** en utilisant le mot de passe *encoder*. Vous enregistrerez le fichier chiffré sous le nom `message.des3`. 
 #. Pour finir, déchiffrez votre message sans l'enregistrer dans un fichier mais en le visualisant à l'écran.
 #. Chiffrer une image en l'enregistrant au format ``jpg`` et afficher son contenu. Déchiffrer l'image chiffrée et vérifier son contenu.

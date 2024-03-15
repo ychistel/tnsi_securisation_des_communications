@@ -49,6 +49,7 @@
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="TP : Cryptographie RSA" href="tp_rsa.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -110,8 +111,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -151,11 +150,13 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp_rsa.html">TP : Cryptographie RSA</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">La cryptographie asymétrique</a></li>
 </ul>
 
     </div>
@@ -304,8 +305,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-de-diffie-hellman">Méthode de Diffie-Hellman</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-systeme-rsa">Le système RSA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signature-d-un-message">Signature d’un message</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrement-d-un-message">Chiffrement d’un message</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#echanger-une-clef-symetrique">Échanger une clef symétrique</a></li>
 </ul>
             </nav>
         </div>
@@ -319,81 +322,73 @@ document.write(`
                   
   <section id="la-cryptographie-asymetrique">
 <h1>La cryptographie asymétrique<a class="headerlink" href="#la-cryptographie-asymetrique" title="Link to this heading">#</a></h1>
-<p>Le chiffrement symétrique est sûr et rapide. Son point faible se situe dans la communication de la clef de chiffrement.</p>
-<p>Pour remédier au problème d’échange de clefs, le chiffrement asymétrique a été créé dans les années 1970 pour communiquer de façon sécurisée sans avoir à échanger de clef de chiffrement.</p>
-<p class="rubric" id="principe">Principe</p>
+<p>Le chiffrement asymétrique a été créé dans les années 1970 pour communiquer de façon sécurisée sans avoir à échanger de clef de chiffrement.</p>
+<div class="definition admonition" id="principe">
+<p class="admonition-title">Principe</p>
 <p>Le principe du chiffrement asymétrique repose sur une paire de clefs:</p>
 <ul class="simple">
 <li><p>une clef privée qui doit rester secrète,</p></li>
 <li><p>une clef publique qui est communiquée.</p></li>
 </ul>
-<section id="methode-de-diffie-hellman">
-<h2>Méthode de Diffie-Hellman<a class="headerlink" href="#methode-de-diffie-hellman" title="Link to this heading">#</a></h2>
-<p>La méthode consiste à fabriquer une clef de chiffrement symétrique en utilisant un canal de communication non sécurisé. Lors d’une communication chiffrée entre 2 participants:</p>
-<ul class="simple">
-<li><p>Chaque participant dispose d’une clef privée secrète;</p></li>
-<li><p>Chaque participant crée avec sa clé privée et des paramètres communs une clef publique;</p></li>
-<li><p>Les participants échangent leurs clefs publiques;</p></li>
-<li><p>Chaque participant construit une clé secrète qui sera utilisée pour le chiffrement symétrique de la communication.</p></li>
-</ul>
-<div class="admonition hint">
-<p class="admonition-title">Indication</p>
-<p>La clef de chiffrement symétrique fabriquée par chaque participant est la même. Cela résulte de calculs mathématiques utilisant des nombres premiers.</p>
 </div>
-<p>Alice et Bob souhaitent communiquer en chiffrant leur message. Ils commencent par construire une clef symétrique avec la méthode de Diffie-Hellman. Cela se déroule en plusieurs étapes:</p>
-<a class="reference internal image-reference" href="../_images/diffie-hellman.svg"><img alt="../_images/diffie-hellman.svg" class="align-center" src="../_images/diffie-hellman.svg" width="500px" /></a>
-<ol class="arabic">
-<li><p>Alice et Bob se mettent d’accord sur des paramètres publics communs (générateur et nombre premier).</p></li>
-<li><p>Alice dispose d’une clé privée secrète (a). Bob dispose d’une clé privée secrète (b).</p></li>
-<li><p>Alice crée avec une clé publique (A) avec sa clef privée <span class="math notranslate nohighlight">\(a\)</span> et les paramètres communs publics. Bob crée avec une clé publique (B) avec sa clef privée <span class="math notranslate nohighlight">\(b\)</span> et les paramètres communs publics.</p></li>
-<li><p>Alice et Bob échangent leurs clés publiques.</p></li>
-<li><p>Alice crée avec sa clef privée <span class="math notranslate nohighlight">\(a\)</span> et la clé publique de Bob <span class="math notranslate nohighlight">\(B\)</span> une clé de chiffrement <span class="math notranslate nohighlight">\(K_{A}\)</span>.</p>
-<p>Bob crée avec sa clef privée <span class="math notranslate nohighlight">\(b\)</span> et la clé publique d’Alice <span class="math notranslate nohighlight">\(A\)</span> une clé de chiffement <span class="math notranslate nohighlight">\(K_{B}\)</span>.</p>
-</li>
-<li><p>En fait <span class="math notranslate nohighlight">\(K_{A}=K_{B}=K\)</span>. Donc, Alice et Bob sont en possession d’une clé de chiffrement commune dite clé partagée.</p></li>
-<li><p>Disposant de la même clé <span class="math notranslate nohighlight">\(K\)</span>, ils peuvent communiquer des messages avec un <strong>chiffrement symétrique</strong>.</p></li>
-</ol>
-<p class="rubric" id="analogie-des-pots-de-peinture">Analogie des pots de peinture</p>
-<p>Pour comprendre la méthode de Diffie-Hellman, on la compare au mélange de couleurs de pots de peinture.</p>
+<div class="propriete admonition" id="chiffrement">
+<p class="admonition-title">Chiffrement</p>
+<p>On peut chiffrer des messages de 2 façons différentes pour 2 usages distincts.</p>
 <ul class="simple">
-<li><p>Une couleur publique commune est choisie, par exemple un jaune.</p></li>
-<li><p>Alice choisit une couleur privée, par exemple du bleu. Bob choisit aussi une couleur privée, par exemple du vert.</p></li>
-<li><p>Alice mélange la couleur publique (jaune) avec sa couleur privée (bleu) et on obtient un premier mélange vert kaki.</p></li>
-<li><p>De son côté, Bob mélange la couleur publique (jaune) avec sa couleur privée (vert) et on obtient un mélange vert pistache.</p></li>
-<li><p>Alice et Bob échangent leurs mélanges de couleur.</p></li>
-<li><p>Alice mélange alors le vert pistache envoyé par Bob avec sa couleur privée bleu et Bob de son côté mélange le vert kaki envoyé par Alice avec sa couleur privée vert.</p></li>
-<li><p>Après mélange, Alice et Bob dispose de la même couleur!</p></li>
+<li><p>On chiffre un message avec la clé privée. La clé publique permet de le déchiffrer. Cette méthode permet de <strong>signer</strong> le message.</p></li>
+<li><p>On chiffre un message avec la clé publique. La clé privé permet de le déchiffrer. Cette méthode permet une <strong>communication cryptée</strong>.</p></li>
 </ul>
-<p>Le mélange des trois couleurs donnera la clef commune finale pour le chiffrement symétrique. La robustesse de la méthode s’explique par le fait que lorsqu’on connaît le mélange de 2 couleurs et l’une des 2
-couleurs, il est quasi impossible de retouver exactement la seconde couleur qui a servi à fabriquer le mélange. Seule la multiplication des essais permettrait d’y parvenir.</p>
-<a class="reference internal image-reference" href="../_images/diffie_hellman_couleurs.svg"><img alt="diffie_hellman_couleurs.svg" class="align-center" src="../_images/diffie_hellman_couleurs.svg" width="600px" /></a>
-</section>
+</div>
 <section id="le-systeme-rsa">
 <h2>Le système RSA<a class="headerlink" href="#le-systeme-rsa" title="Link to this heading">#</a></h2>
 <p>Le système RSA est un chiffrement asymétrique inventé par <strong>Rivest</strong>, <strong>Shamir</strong> et <strong>Adleman</strong> en 1977.</p>
-<p>Ce système repose sur une paire de clefs, une clef publique <span class="math notranslate nohighlight">\(K^{pub}\)</span> et une clef privée <span class="math notranslate nohighlight">\(K^{prv}\)</span>, et sur une fonction de chiffrement par clef qui vérifie les propriétés suivantes:</p>
+<p>La paire de clefs est construite par un algorithme qui s’appuie sur les nombres premiers. On dispose d’une clef publique <span class="math notranslate nohighlight">\(K^{pub}\)</span>, d’une clef privée <span class="math notranslate nohighlight">\(K^{prv}\)</span> et une fonction de chiffrement par clef qui vérifie les propriétés suivantes:</p>
 <ul class="simple">
 <li><p>On obtient le message initial <span class="math notranslate nohighlight">\(m\)</span> en le chiffrant successivement avec la clef publique et la clef privée : <span class="math notranslate nohighlight">\(K^{pub}(K^{prv}(m)) = K^{prv}(K^{pub}(m)) = m\)</span></p></li>
 <li><p>Il est impossible connaissant le message chiffré de deviner le message initial en clair;</p></li>
-<li><p>Il est impossible connaissant la clef publique d’un participant de deviner sa clef privée.</p></li>
+<li><p>Il est impossible connaissant la clef publique de deviner la clef privée associée.</p></li>
 </ul>
-<p class="rubric">Chiffrement</p>
-<p>La clef publique est utilisée pour chiffrer un message, un fichier. Seule la clé privée peut déchiffre ce message.</p>
-<a class="reference internal image-reference" href="../_images/chiffrement_rsa.svg"><img alt="../_images/chiffrement_rsa.svg" class="align-center" src="../_images/chiffrement_rsa.svg" width="500px" /></a>
+</section>
+<section id="signature-d-un-message">
+<h2>Signature d’un message<a class="headerlink" href="#signature-d-un-message" title="Link to this heading">#</a></h2>
+<p>Lorsqu’on reçoit un message, rien ne garantit l’origine de celui-ci. Pour s’assurer qu’il a été envoyé par la bonne personne, on utilise sa signature électronique.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/signature.svg"><img alt="signature.svg" src="../_images/signature.svg" width="280px" /></a>
+<figcaption>
+<p><span class="caption-text">Signature electronique</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p>Alice chiffre un message avec sa <strong>clé privée</strong>. On dit qu’elle <strong>signe</strong> le message.</p></li>
+<li><p>Alice envoie le message et sa signature (message chiffré) à Bob.</p></li>
+<li><p>Bob utilise la clé publique d’Alice pour déchiffrer la signature. Il obtient un message qui est comparé avec le message envoyé par Alice. Si c’est le même, il a la garantie que c’est Alice qui lui a envoyé le message.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Cette méthode assure l’origine du message. Seule Alice possède la clé privée associée à la clé publique qui permet de déchiffrer la signature.</p>
+<p>Toute personne qui reçoit le message signé est assuré qu’il est envoyé par Alice.</p>
+<p>Cette méthode n’a pas pour but de cacher le message envoyé.</p>
+</div>
+</section>
+<section id="chiffrement-d-un-message">
+<h2>Chiffrement d’un message<a class="headerlink" href="#chiffrement-d-un-message" title="Link to this heading">#</a></h2>
+<p>La clef publique est utilisée pour chiffrer un message. Seule la clé privée peut déchiffrer ce message.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/chiffrement_rsa.svg"><img alt="../_images/chiffrement_rsa.svg" src="../_images/chiffrement_rsa.svg" width="500px" /></a>
+</figure>
 <ol class="arabic simple">
 <li><p>Bob veut envoyer un message chiffré à Alice. Il utilise la clé publique d’Alice pour chiffrer son message.</p></li>
 <li><p>Alice reçoit le message chiffré avec sa clé publique. Elle le déchiffre en utilisant sa clé privée.</p></li>
 <li><p>Si Carlo reçoit aussi le message, il ne pourra pas le déchiffrer.</p></li>
 </ol>
-<p class="rubric">Signature</p>
-<p>Lorsqu’on reçoit un message, rien ne garantit l’origine de celui-ci. Pour s’assurer qu’il a bien été envoyé par la bonne personne, on utilise sa signature électronique.</p>
-<a class="reference internal image-reference" href="../_images/signature.svg"><img alt="signature.svg" class="align-center" src="../_images/signature.svg" width="280px" /></a>
-<ol class="arabic simple">
-<li><p>Alice chiffre un message avec sa <strong>clé privée</strong>. On dit qu’elle <strong>signe</strong> le message.</p></li>
-<li><p>Alice envoie le message et la signature (message chiffré) à Bob.</p></li>
-<li><p>Bob utilise la clé publique d’Alice pour déchiffrer la signature. Il obtient un message qui est comparé avec le message envoyé par Alice. Si c’est le même, il a la garantie que c’est Alice qui lui a envoyé le message.</p></li>
-</ol>
-<p class="rubric" id="echanger-une-clef-symetrique">Échanger une clef symétrique</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Comme Alice est la seule à posséder la clé privée associée à la clé publique utilisée pour chiffrer le message, elle est la seule à pouvoir le déchiffrer.</p>
+<p>La sécurité repose sur le fait qu’il est impossible de trouver la clé privée à partir d’une clé publique.</p>
+</div>
+</section>
+<section id="echanger-une-clef-symetrique">
+<h2>Échanger une clef symétrique<a class="headerlink" href="#echanger-une-clef-symetrique" title="Link to this heading">#</a></h2>
 <p>La cryptographie RSA peut être utilisée pour échanger une clef de chiffrement symétrique. La clef de chiffrement symétrique choisie par un des participants sera chiffrée avec la paire de clés RSA.</p>
 <ul class="simple">
 <li><p>Alice fabrique une clef de chiffrement symétrique <span class="math notranslate nohighlight">\(k\)</span>;</p></li>
@@ -401,8 +396,7 @@ couleurs, il est quasi impossible de retouver exactement la seconde couleur qui 
 <li><p>Bob reçoit la clef chiffrée et la déchiffre avec sa clef privée : <span class="math notranslate nohighlight">\(K_B^{prv}(K_B^{pub}(k))=k\)</span>;</p></li>
 <li><p>Alice et Bob disposent de la même clef de chiffrement symétrique <span class="math notranslate nohighlight">\(k\)</span> et peuvent communiquer de manière sécurisée.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/rsa.svg"><img alt="rsa.svg" class="align-center" src="../_images/rsa.svg" width="560px" /></a>
-</section>
+<img alt="rsa.svg" class="align-center" src="../_images/rsa.svg" /></section>
 </section>
 
 
@@ -416,6 +410,15 @@ couleurs, il est quasi impossible de retouver exactement la seconde couleur qui 
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tp_rsa.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">TP : Cryptographie RSA</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -432,8 +435,10 @@ couleurs, il est quasi impossible de retouver exactement la seconde couleur qui 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-de-diffie-hellman">Méthode de Diffie-Hellman</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-systeme-rsa">Le système RSA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signature-d-un-message">Signature d’un message</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chiffrement-d-un-message">Chiffrement d’un message</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#echanger-une-clef-symetrique">Échanger une clef symétrique</a></li>
 </ul>
   </nav></div>
 
