@@ -7,7 +7,7 @@ Nous allons dans cette activité utiliser la machine virtuelle UBUNTU pour :
 
 -  créer une paire de clés RSA;
 -  signer un message
--  chiffre et déchiffrer un message
+-  chiffrer et déchiffrer un message
 
 Créer une paire de clé RSA
 --------------------------

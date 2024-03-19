@@ -49,6 +49,7 @@
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="La cryptographie asymétrique" href="cryptographie_asymetrique.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -110,8 +111,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -151,13 +150,14 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp_rsa.html">TP : Cryptographie RSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_asymetrique.html">La cryptographie asymétrique</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">TP : Méthode Diffie - Hellman</a></li>
 </ul>
 
     </div>
@@ -321,8 +321,19 @@ document.write(`
                   
   <section id="tp-methode-diffie-hellman">
 <h1>TP : Méthode Diffie - Hellman<a class="headerlink" href="#tp-methode-diffie-hellman" title="Link to this heading">#</a></h1>
-<p>La méthode repose sur des calculs mathématiques liés au logarithme discret.</p>
-<p>On se place dans la situation où 2 personnes, Alice et Bob, souhaitent sécuriser leurs échanges en utilisant une clé de chiffrement commune appelée clé partagée.</p>
+<p>La méthode consiste à fabriquer une clef de chiffrement symétrique en utilisant un canal de communication non sécurisé. Lors d’une communication chiffrée entre 2 participants:</p>
+<ul class="simple">
+<li><p>Chaque participant dispose d’une clef privée secrète;</p></li>
+<li><p>Chaque participant crée avec sa clé privée et des paramètres communs une clef publique;</p></li>
+<li><p>Les participants échangent leurs clefs publiques;</p></li>
+<li><p>Chaque participant construit une clé secrète qui sera utilisée pour le chiffrement symétrique de la communication.</p></li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Indication</p>
+<p>La clef de chiffrement symétrique fabriquée par chaque participant est la même. Cela résulte de calculs mathématiques utilisant des nombres premiers.</p>
+</div>
+<p>Alice et Bob souhaitent communiquer en chiffrant leur message. Ils commencent par construire une clef symétrique avec la méthode de Diffie-Hellman. Cela se déroule en plusieurs étapes:</p>
+<a class="reference internal image-reference" href="../_images/diffie-hellman.svg"><img alt="../_images/diffie-hellman.svg" class="align-center" src="../_images/diffie-hellman.svg" width="500px" /></a>
 <ul class="simple">
 <li><p>Alice et Bob choisissent en commun 2 nombres <span class="math notranslate nohighlight">\(g\)</span> et <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
 <li><p>Alice choisit un nombre secret appelé <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
@@ -363,6 +374,15 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="cryptographie_asymetrique.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">La cryptographie asymétrique</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
