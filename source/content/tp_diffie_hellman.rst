@@ -1,9 +1,22 @@
 TP : Méthode Diffie - Hellman
 =============================
 
-La méthode repose sur des calculs mathématiques liés au logarithme discret.
+La méthode consiste à fabriquer une clef de chiffrement symétrique en utilisant un canal de communication non sécurisé. Lors d'une communication chiffrée entre 2 participants:
 
-On se place dans la situation où 2 personnes, Alice et Bob, souhaitent sécuriser leurs échanges en utilisant une clé de chiffrement commune appelée clé partagée. 
+-  Chaque participant dispose d'une clef privée secrète;
+-  Chaque participant crée avec sa clé privée et des paramètres communs une clef publique;
+-  Les participants échangent leurs clefs publiques;
+-  Chaque participant construit une clé secrète qui sera utilisée pour le chiffrement symétrique de la communication.
+
+.. hint::
+
+   La clef de chiffrement symétrique fabriquée par chaque participant est la même. Cela résulte de calculs mathématiques utilisant des nombres premiers.
+
+Alice et Bob souhaitent communiquer en chiffrant leur message. Ils commencent par construire une clef symétrique avec la méthode de Diffie-Hellman. Cela se déroule en plusieurs étapes:
+
+.. image:: ../img/diffie-hellman.svg
+   :align: center
+   :width: 500px
 
 - Alice et Bob choisissent en commun 2 nombres :math:`g` et :math:`p`.
 - Alice choisit un nombre secret appelé :math:`a`.
