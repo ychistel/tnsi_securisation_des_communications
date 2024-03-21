@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TP : Protocole HTTPS et Certificat &#8212; NSI</title>
+    <title>Protocole https &#8212; NSI</title>
   
   
   
@@ -43,8 +43,6 @@
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/translations.js?v=d99ca74e"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_https';</script>
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -159,6 +157,8 @@
 <li class="toctree-l1"><a class="reference internal" href="tp_rsa.html">TP : Cryptographie RSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_asymetrique.html">La cryptographie asymétrique</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp_diffie_hellman.html">TP : Méthode Diffie - Hellman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="activite_certificat.html">Activité : Certificats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocole_https.html">Sécuriser une communication</a></li>
 </ul>
 
     </div>
@@ -284,9 +284,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -297,21 +295,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TP : Protocole HTTPS et Certificat</h1>
+    <h1>Protocole https</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contenu </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaque-dite-homme-du-milieu">Attaque dite « Homme du milieu »</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificat">Certificat</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-https">Protocole https</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -321,44 +309,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tp-protocole-https-et-certificat">
-<h1>TP : Protocole HTTPS et Certificat<a class="headerlink" href="#tp-protocole-https-et-certificat" title="Link to this heading">#</a></h1>
-<section id="attaque-dite-homme-du-milieu">
-<h2>Attaque dite « Homme du milieu »<a class="headerlink" href="#attaque-dite-homme-du-milieu" title="Link to this heading">#</a></h2>
-<p>Bien que les communications soient chiffrées, rien ne garantit que l’on communique avec la bonne personne ou le bon site.</p>
-<p>On suppose qu’Alice et Bob veulent échanger de façon sécurisée. Carlo réussit à intercepter les messages envoyés entre Alice et Bob. On note <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> et <span class="math notranslate nohighlight">\(c\)</span> les clés privées de chacun et <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> et <span class="math notranslate nohighlight">\(C\)</span> leurs clés publiques.</p>
-<ol class="arabic">
-<li><p>Est-il possible pour Carlo de récupérer les clés publiques A et B de Bob et Alice ?</p></li>
-<li><p>Alice envoie un message chiffré à Bob. Est-il possible pour Carlo de le déchiffrer ? Pourquoi ?</p></li>
-<li><p>On donne la figure suivante qui illustre l’attaque dite « homme du milieu ».</p>
-<a class="reference internal image-reference" href="../_images/homme_du_milieu.svg"><img alt="../_images/homme_du_milieu.svg" class="align-center" src="../_images/homme_du_milieu.svg" width="400px" /></a>
-<p>Décrivez les 4 étapes qui vont permettre à Carlo de déchiffrer les messages que Bob et Alice s’échangent.</p>
-</li>
-</ol>
-</section>
-<section id="certificat">
-<h2>Certificat<a class="headerlink" href="#certificat" title="Link to this heading">#</a></h2>
-<p>Un certificat est un fichier qui permet d’assurer de son identité. Les certificats sont créés par des autorités reconnus par les différents acteurs du numérique. La navigation sur le web est sécurisée grâce aux certificats.</p>
-<ol class="arabic">
-<li><p>Connectez-vous au site de l’agence nationale de la sécurité des systèmes d’informations <a class="reference external" href="https://www.ssi.gouv.fr/">ANSSI</a>.</p></li>
-<li><p>Sur la page d’accueil du site, vérifier la présence du cadenas et cliquer dessus pour afficher le certificat.</p></li>
-<li><p>Repérer les informations suivantes:</p>
-<ol class="loweralpha simple">
-<li><p>L’algorithme de chiffrement utilisé pour créer le certificat.</p></li>
-<li><p>La taille de la clé publique.</p></li>
-<li><p>L’autorité qui a émis ce certificat.</p></li>
-<li><p>Les noms de domaines concernés par ce certificat.</p></li>
-</ol>
-</li>
-<li><p>Retrouver les mêmes informations en ligne de commande avec openssl.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>url_du_site:443
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="protocole-https">
-<h2>Protocole https<a class="headerlink" href="#protocole-https" title="Link to this heading">#</a></h2>
+  <section id="protocole-https">
+<h1>Protocole https<a class="headerlink" href="#protocole-https" title="Link to this heading">#</a></h1>
 <p>Le protocole HTTPS est l’association du protocole HTTP et du PROTOCOLE SSL/TLS.</p>
 <ul class="simple">
 <li><p>Le protocole HTTP assure l’acheminement des données entre un client et un serveur. Cette transmission de données est basée sur des requêtes selon les méthodes GET ou POST.</p></li>
@@ -431,7 +383,6 @@ document.write(`
 <li><p>Actualiser le navigateur et vérifier que le certificat utilisé est bien celui créé précédemment.</p></li>
 </ol>
 </section>
-</section>
 
 
                 </article>
@@ -451,22 +402,7 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contenu
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaque-dite-homme-du-milieu">Attaque dite « Homme du milieu »</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificat">Certificat</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-https">Protocole https</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

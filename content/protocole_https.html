@@ -47,6 +47,7 @@
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="Activité : Certificats" href="activite_certificat.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -108,8 +109,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -149,7 +148,7 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
@@ -157,6 +156,8 @@
 <li class="toctree-l1"><a class="reference internal" href="tp_rsa.html">TP : Cryptographie RSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_asymetrique.html">La cryptographie asymétrique</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp_diffie_hellman.html">TP : Méthode Diffie - Hellman</a></li>
+<li class="toctree-l1"><a class="reference internal" href="activite_certificat.html">Activité : Certificats</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sécuriser une communication</a></li>
 </ul>
 
     </div>
@@ -321,36 +322,38 @@ document.write(`
   <section id="securiser-une-communication">
 <h1>Sécuriser une communication<a class="headerlink" href="#securiser-une-communication" title="Link to this heading">#</a></h1>
 <p>Les chiffrements, quels qu’ils soient, ne suffisent pas pour sécuriser une communication. De nombreuses personnes sont piégées du fait d’établir une communication avec une personne ou un organisme qui usurpe l’identité de la personne ou de l’organisme souhaité.</p>
-<p>Comment être sûr qu’on communique bien nos données aux bonnes personnes ou bons organismes ?</p>
+<p>Comment être sûr qu’on communique bien nos données aux bonnes personnes ou aux bons organismes ?</p>
 <p>Une attaque assez répandue du nom de <strong>l’homme du milieu</strong> (man on the middle) consiste à s’immiscer dans une communication en se faisant passer pour chacun des participants.</p>
-<p>Par exemple, Malory peut se placer entre Alice et Bob dans leur communication en se faisant passer pour Bob lorsqu’il communique avec Alice et se faire passer pour Alice lorsqu’il communique avec Bob.</p>
-<img alt="Homme du milieu" class="align-center" src="../_images/certificat1.png" />
-<p>Pour s’assurer de communiquer avec la bonne personne ou le bon organisme (banque, assurance, médical, commerce,…), on a recourt aux <strong>certificats</strong>.</p>
+<p>Par exemple, un attaquant nommé Carlo se place entre Alice et Bob dans leur communication et intercepte tous les messages chiffrés.</p>
+<a class="reference internal image-reference" href="../_images/homme_du_milieu.svg"><img alt="../_images/homme_du_milieu.svg" class="align-center" src="../_images/homme_du_milieu.svg" width="560px" /></a>
+<p>Alice démarre la communication en demandant la clé publique de Bob.</p>
+<ol class="arabic simple">
+<li><p>Bob envoie sa clé publique à Alice qui est interceptée par l’attaquant Carlo.</p></li>
+<li><p>Carlo remplace la clé publique de Bob par sa propre clé publique et l’envoie à Alice.</p></li>
+<li><p>Alice reçoit la clé publique de Carlo et chiffre un message pour Bob et lui envoie.</p></li>
+<li><p>L’attaquant intercepte le message chiffré et le déchiffre avec sa clé privée. Il peut même le modifier. Ensuite il chiffre le message avec la clé publique de Bob et lui envoie le message chiffré.</p></li>
+</ol>
+<p>Alice et Bob ont communiqué sans se rendre compte que leurs messages étaient interceptés, déchiffrés voire modifiés par un attaquant.</p>
 <section id="les-certificats">
 <h2>Les certificats<a class="headerlink" href="#les-certificats" title="Link to this heading">#</a></h2>
-<p>Nous disposons d’une carte d’identité sur laquelle figure une photo et des signes de reconnaissance physique. Cette carte est délivrée par un organisme d’état qui certifie de notre identité. La falsification d’une pièce d’identité est punie par la loi. Cette carte, en laquelle on peut avoir toute confiance, permet de nous
-identifier.</p>
-<ul class="simple">
-<li><p>Un <strong>certificat</strong> remplit le même rôle pour un organisme ou une personne qui dispose d’une visibilité numérique. Ce certificat est délivré par un organisme de confiance qui certifie la véritable identité du demandeur. Cet organisme est un <strong>tiers de confiance</strong>.</p></li>
-<li><p>Ces certificats numériques qui attestent de la véritable identité d’une personne ou d’un organisme permettent d’établir une communication sécurisée en confiance.</p></li>
-<li><p>Pour que Bob et Alice soient certains de communiquer en confiance entre eux, Bertille demande la création d’un certificat auprès d’un tiers de confiance nommée Thierry.</p></li>
-<li><p>Albert, Bob et THierry disposent chacun d’une paire de clefs publique et privée pour un chiffrement asymétrique.</p></li>
-</ul>
+<p>Les <strong>certificats</strong> nous assurent de communiquer avec la bonne personne ou le bon organisme (banque, assurance, médical, commerce,…) appelé ou consulté. Les certificats authentifient les clés publiques reçues et ainsi assurer l’identité de la personne ou de l’organisme avec qui on communique.</p>
+<p>Un <strong>certificat</strong> est délivré par un organisme de confiance qui certifie la véritable identité du demandeur. Cet organisme est une <strong>autorité de certification AC</strong>.</p>
+<p>Ces certificats numériques attestent de la véritable identité d’une personne ou d’un organisme pour avoir l’assurance d’établir une communication sécurisée.</p>
+<p>Pour que Bob et Alice soient certains de communiquer en confiance entre eux, Bob demande la création d’un certificat auprès d’une autorité de certification <strong>AC</strong>.</p>
+<p>Voici les différentes étapes</p>
 <ol class="arabic simple">
-<li><p>Bob contacte Thierry (tiers de confiance) qui chiffre la clef publique de Bob avec sa clef privée. Il crée ainsi un certificat qui contiendra la clef publique de Bob et des éléments d’authentification (nom, adresse, site web,…). On dit que Thierry <strong>signe</strong> la clef publique de Bob.</p></li>
-<li><p>Alice établit une communication avec Bob qui lui envoie sa clef publique et son certificat.</p></li>
-<li><p>Alice récupère la clef publique de Thierry (tiers de confiance) et déchiffre le certificat envoyé par Bob. Alice en extrait alors la clef publique de Bob qu’elle peut comparer avec la clé publique que Bob a envoyé.</p></li>
-<li><p>Si les clefs publiques sont les mêmes, une communication peut alors s’établir. Sinon, des alertes seront signalées.</p></li>
+<li><p>Bob demande auprès d’une autorité de certifcation AC le chiffrement de sa clé publique. L’AC chiffre la clé publique de Bob avec sa clé privée. Elle crée un certificat qui contient la clé publique de Bob chiffrée et des éléments d’authentification comme le nom, l’adresse du site web, adresse mail, etc. On dit que l’AC <strong>signe</strong> la clé publique de Bob.</p></li>
+<li><p>Alice démarre une communication avec Bob qui lui envoie sa clé publique et son <strong>certificat</strong>.</p></li>
+<li><p>Alice demande la clé publique de l’autorité de certification AC et déchiffre le certificat envoyé par Bob. Alice en extrait alors la clé publique de Bob qu’elle peut comparer avec la clé publique que Bob a aussi envoyé.</p></li>
+<li><p>Si les clés publiques sont les mêmes, une communication sécurisée peut s’établir. Sinon, des alertes seront signalées.</p></li>
 </ol>
-<a class="reference internal image-reference" href="../_images/certificat_1.svg"><img alt="Authentification par certificat" class="align-center" src="../_images/certificat_1.svg" width="560" /></a>
+<a class="reference internal image-reference" href="../_images/certificat.svg"><img alt="Authentification par certificat" class="align-center" src="../_images/certificat.svg" width="560" /></a>
 </section>
 <section id="protocole-https">
 <h2>Protocole HTTPS<a class="headerlink" href="#protocole-https" title="Link to this heading">#</a></h2>
 <p>Le protocole HTTPS est un protocole HTTP auquel on ajoute un protocole d’authentification par certificat pour sécuriser la communication sur le web.</p>
-<p class="rubric" id="autorite-de-certification">Autorité de certification</p>
-<p>Une autorité de certification <strong>AC</strong> est un organisme habilitée à délivrer des certificats numériques. Parmi les <strong>AC</strong>, on retouve des entreprises, des associations ou des services de l’état. Cette autorité est un tiers de confiance qui atteste de l’authenticité de l’organisme ou de la personne qui possède le certificat.</p>
-<p class="rubric" id="format-du-certificat">Format du certificat</p>
-<p>Le format standard d’un certificat est le format X.509 qui est un fichier binaire contenant les informations suivantes:</p>
+<p class="rubric">Certificat</p>
+<p>Le format standard d’un certificat est le format <code class="docutils literal notranslate"><span class="pre">X.509</span></code> qui est un fichier binaire contenant les informations suivantes:</p>
 <ul class="simple">
 <li><p>l’identifiant de l’autorité de certification;</p></li>
 <li><p>l’identifiant de l’organisme ou personne certifiée;</p></li>
@@ -361,9 +364,9 @@ identifier.</p>
 <p class="rubric" id="detail-du-protocole-https">Détail du protocole HTTPS</p>
 <p>Le protocole <strong>HTTPS</strong> est la réunion des protocoles <strong>HTTP</strong> (requête web) et <strong>TLS</strong> (sécurité des communications).</p>
 <p>Le protocole TLS ajoute une phase permettant l’authentification du serveur et la mise en place d’une communication sécurisée avec une clef de chiffrement symétrique appelée <strong>clef de session</strong>. Lorsque
-cette clef de session est connue du client et du serveur, la communication chiffrée peut commencer. Toutes les requêtes sont chiffrées avant envoi et toutes les réponses sont déchiffrées à la reception. La communication est bien sécurisée :</p>
+cette clé de session est connue du client et du serveur, la communication chiffrée peut commencer. Toutes les requêtes sont chiffrées avant envoi et toutes les réponses sont déchiffrées à la reception. La communication est bien sécurisée :</p>
 <ul class="simple">
-<li><p>l’authentification par certificat empêche toute attaque du type homme du milieu;</p></li>
+<li><p>l’authentification par certificat empêche toute attaque du type <strong>homme du milieu</strong>;</p></li>
 <li><p>le chiffrement empêche la lecture des contenus lors de la transmission (routeurs, serveurs intermédiaires).</p></li>
 </ul>
 <p>La mise en place de cette communication sécurisée dite <strong>poignée de main TLS</strong> se déroule en 5 étapes:</p>
@@ -395,6 +398,15 @@ cette clef de session est connue du client et du serveur, la communication chiff
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="activite_certificat.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Activité : Certificats</p>
+      </div>
+    </a>
 </div>
                 </footer>
               

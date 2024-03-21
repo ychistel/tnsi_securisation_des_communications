@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Chiffrement de Vigenère &#8212; NSI</title>
+    <title>Activité : Certificats &#8212; NSI</title>
   
   
   
@@ -45,12 +45,12 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/code_vigenere';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/activite_certificat';</script>
     <script src="../_static/custom.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
-    <link rel="next" title="Chiffrement de Vernam" href="chiffrement_vernam.html" />
-    <link rel="prev" title="Code César" href="code_cesar.html" />
+    <link rel="next" title="Sécuriser une communication" href="protocole_https.html" />
+    <link rel="prev" title="TP : Méthode Diffie - Hellman" href="tp_diffie_hellman.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -153,13 +153,13 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="code_cesar.html">Code César</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chiffrement de Vigenère</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_vigenere.html">Chiffrement de Vigenère</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chiffrement_vernam.html">Chiffrement de Vernam</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_symetrique.html">La cryptographie symétrique</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp_rsa.html">TP : Cryptographie RSA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cryptographie_asymetrique.html">La cryptographie asymétrique</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp_diffie_hellman.html">TP : Méthode Diffie - Hellman</a></li>
-<li class="toctree-l1"><a class="reference internal" href="activite_certificat.html">Activité : Certificats</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Activité : Certificats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="protocole_https.html">Sécuriser une communication</a></li>
 </ul>
 
@@ -215,7 +215,7 @@
       
       
       
-      <li><a href="../_sources/content/code_vigenere.rst" target="_blank"
+      <li><a href="../_sources/content/activite_certificat.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Télécharger le fichier source"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -299,7 +299,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chiffrement de Vigenère</h1>
+    <h1>Activité : Certificats</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -309,9 +309,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quelques-definitions">Quelques définitions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-chiffrement-de-cesar">Le chiffrement de César</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-chiffrement-de-vigenere">Le chiffrement de Vigenère</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaque-dite-homme-du-milieu">Attaque dite « Homme du milieu »</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificat">Certificat</a></li>
 </ul>
             </nav>
         </div>
@@ -323,80 +322,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="chiffrement-de-vigenere">
-<h1>Chiffrement de Vigenère<a class="headerlink" href="#chiffrement-de-vigenere" title="Link to this heading">#</a></h1>
-<section id="quelques-definitions">
-<h2>Quelques définitions<a class="headerlink" href="#quelques-definitions" title="Link to this heading">#</a></h2>
-<div class="definition admonition">
-<p class="admonition-title">Cryptographie</p>
-<p>La <strong>cryptographie</strong> est un ensemble de procédés et de techniques qui permet de rendre un message incompréhensible pour en conserver le secret. Les techniques utilisées s’appuient sur des algorithmes et des clefs de chiffrement.</p>
-</div>
-<div class="definition admonition">
-<p class="admonition-title">Cryptanalyse</p>
-<p>La <strong>cryptanalyse</strong> est un ensemble de procédés et de techniques qui permet de déchiffrer un message sans avoir connaissance des clefs de chiffrement.</p>
-</div>
-<div class="definition admonition">
-<p class="admonition-title">Chiffrer</p>
-<p>Rendre un message incompréhensible en utilisant des clefs de chiffrement et des algorithmes de cryptage.</p>
-</div>
-<div class="definition admonition">
-<p class="admonition-title">Déchiffrer</p>
-<p>Rendre un message compréhensible, dans la forme avant chiffrement en utilisant des clefs de déchiffrement et des algorithmes.</p>
-</div>
+  <section id="activite-certificats">
+<h1>Activité : Certificats<a class="headerlink" href="#activite-certificats" title="Link to this heading">#</a></h1>
+<section id="attaque-dite-homme-du-milieu">
+<h2>Attaque dite « Homme du milieu »<a class="headerlink" href="#attaque-dite-homme-du-milieu" title="Link to this heading">#</a></h2>
+<p>Alice et Bob veulent échanger de façon sécurisée en utilisant une clé de chiffrement symétrique. Pour échanger cette clé, ils utilisent le chiffrement asymétrique.</p>
+<img alt="rsa.svg" class="align-center" src="../_images/rsa.svg" /><p>Carlo, un hacker, réussit à intercepter les messages envoyés entre Alice et Bob. C’est une attaque appelée « homme du milieu » (man on the middle attack).</p>
+<a class="reference internal image-reference" href="../_images/homme_du_milieu.svg"><img alt="../_images/homme_du_milieu.svg" class="align-center" src="../_images/homme_du_milieu.svg" width="560px" /></a>
+<p>On note <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> et <span class="math notranslate nohighlight">\(c\)</span> les clés privées de chacun et <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> et <span class="math notranslate nohighlight">\(C\)</span> leurs clés publiques.</p>
+<p>Bob envoie sa clé publique à Alice pour qu’elle envoie un message chiffré. Expliquez comment l’attaquant intervient lors de cette attaque qui se déoule en 4 temps.</p>
 </section>
-<section id="le-chiffrement-de-cesar">
-<h2>Le chiffrement de César<a class="headerlink" href="#le-chiffrement-de-cesar" title="Link to this heading">#</a></h2>
-<p>Le chiffrement de César est l’un des plus connu, dû à l’Histoire romaine et son auteur, l’empereur César. Pour conserver le secret de ses messages, César a fait chiffrer ses messages par un moyen qui aujourd’hui est très rudimentaire.</p>
-<p class="rubric">Principe</p>
-<p>Le procédé de chiffrement consiste à remplacer une lettre de l’alphabet par une autre. Par exemple, en remplaçant le A par D, le B par E, …, le W par Z puis en reprenant au début de l’alphabet, le X par A, Y par B et Z par C comme le montre l’exemple ci-après:</p>
-<div class="admonition-exemple admonition">
-<p class="admonition-title">Exemple</p>
-<p>Le chiffrement de César avec une clef de valeur 3.</p>
-<img alt="cesar1.png" class="align-center" src="../_images/cesar1.png" />
+<section id="certificat">
+<h2>Certificat<a class="headerlink" href="#certificat" title="Link to this heading">#</a></h2>
+<p>Comme on vient de le voir, même s’il est possible de chiffrer une communication, cela n’assure pas la sécurité de la communication. Il faut s’assurer que celui qui envoie un message est bien celui qu’il prétend être.</p>
+<p>Il existe un moyen d’être assuré de communiquer avec la bonne personne avec l’usage d’un <strong>certificat</strong>.</p>
+<p>Un <strong>certificat</strong> est un fichier qui contient des informations sur une personne ou une entité numérique (site web) et qui permet de l’authentifier.</p>
+<ol class="arabic">
+<li><p>Connectez-vous au site de l’agence nationale de la sécurité des systèmes d’informations <a class="reference external" href="https://www.ssi.gouv.fr/">ANSSI</a>.</p></li>
+<li><p>Sur la page d’accueil du site, à gauche de l’url dans la barre d’adresse se trouve une icone qui affiche un menu en cliquant dessus. Vérifier que la connexion est sécurisée avec un cadenas. Cliquer dessus et afficher le certificat.</p></li>
+<li><p>Repérer les informations suivantes contenues dans le certificat:</p>
+<ol class="loweralpha simple">
+<li><p>L’entité numérique (nom de domaine) qui est authentifiée par ce certificat .</p></li>
+<li><p>L’algorithme de chiffrement utilisé pour créer le certificat.</p></li>
+<li><p>La présence de la clé publique chiffrée et sa taille.</p></li>
+<li><p>Les dates de validité du certificat.</p></li>
+<li><p>L’autorité qui a émis ce certificat.</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Astuce</p>
+<p>Il est possible d’obtenir les informations du certificat en ligne de commande avec openssl.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>url_du_site:443
+</pre></div>
 </div>
-<div class="cell markdown docutils container">
-<p>Ce qui donne un chiffrement du mot BONJOUR en ERQMRXU.</p>
 </div>
-<p class="rubric">Déchiffrement</p>
-<p>Le déchiffrement consiste à remplacer les lettres en effectuant un décalage opposé. L’algorithme de chiffrement et déchiffrement ne déplace pas les lettres contrairement à notre approche visuel ou graphique.</p>
-<p>Il faut se replacer dans un contexte numérique, dans lequel, chaque lettre de l’alphabet est codé en binaire. Dans la table ASCII ou unicode, les lettres de l’alphabet sont codées sur un octet.</p>
-<p>Par exemple, la lettre <code class="docutils literal notranslate"><span class="pre">A</span></code> est codé <span class="math notranslate nohighlight">\(65\)</span> soit <span class="math notranslate nohighlight">\(0100 0001\)</span> en binaire, la lettre <code class="docutils literal notranslate"><span class="pre">B</span></code> est codée <span class="math notranslate nohighlight">\(66\)</span> soit <span class="math notranslate nohighlight">\(0100 0010\)</span> en binaire, …</p>
-<p>Pour effectuer un décalage de 3 rangs dans l’alphabet, cela revient à ajouter 3 soit <span class="math notranslate nohighlight">\(0011\)</span> à
-toutes les lettres.</p>
-<ul class="simple">
-<li><p>La lettre <code class="docutils literal notranslate"><span class="pre">A</span></code> sera codé par la lettre de valeur 68 soit le <code class="docutils literal notranslate"><span class="pre">D</span></code>,</p></li>
-<li><p>la lettre <code class="docutils literal notranslate"><span class="pre">B</span></code> sera codée par la valeur 69 soit le <code class="docutils literal notranslate"><span class="pre">E</span></code>,…</p></li>
-</ul>
-<p>Pour reprendre le mot <code class="docutils literal notranslate"><span class="pre">BONJOUR</span></code>, il est codé <code class="docutils literal notranslate"><span class="pre">66</span> <span class="pre">79</span> <span class="pre">78</span> <span class="pre">74</span> <span class="pre">85</span> <span class="pre">82</span></code> et sera chiffré en <code class="docutils literal notranslate"><span class="pre">69</span> <span class="pre">82</span> <span class="pre">81</span> <span class="pre">77</span> <span class="pre">88</span> <span class="pre">85</span></code>.</p>
-<p>Le déchiffrement consiste donc à réaliser une soustraction de la valeur 3 aux valeurs des lettres.</p>
-<p>On en conclut que la valeur de la <strong>clef de déchiffrement</strong> est égale à <span class="math notranslate nohighlight">\(-3\)</span>.</p>
-<p class="rubric">Robustesse</p>
-<p>On comprend aisément que ce chiffrement n’est pas robuste. Il suffit de tester , au pire, 25 combinaisons pour déchiffrer un message ce qui est très rapide pour un ordinateur.</p>
-</section>
-<section id="le-chiffrement-de-vigenere">
-<h2>Le chiffrement de Vigenère<a class="headerlink" href="#le-chiffrement-de-vigenere" title="Link to this heading">#</a></h2>
-<p class="rubric" id="principe">Principe</p>
-<p>Le chiffrement de Vigenère date du XVI siècle et reprend le chiffrement de César en faisant varier la clef de chiffrement sur plusieurs caractères, et non plus un seul. On parle dans ce cas d’un <strong>mot clef de chiffrement</strong>. Cette clef sera répétée autant de fois que la longueur du message à chiffrer le nécessite.</p>
-<div class="admonition-exemple admonition">
-<p class="admonition-title">Exemple</p>
-<p>Prenons comme <strong>clef de chiffrement</strong> le mot <strong>NSI</strong>.</p>
-<ul class="simple">
-<li><p>À chaque fois qu’une lettre du message est placée au dessus du N, celle ci sera chiffrée en posant un décalage de A à N, B à O, C à P, etc.</p></li>
-<li><p>À chaque fois qu’une lettre du message est placée au dessus du S, celle ci sera chiffrée en posant un décalage de A à S, B à T, C à U, etc.</p></li>
-<li><p>Enfin, à chaque fois qu’une lettre du message est placée au dessus du I, celle ci sera chiffrée en posant un décalage de A à I, B à J, C à K, etc.</p></li>
-</ul>
-<p>On illustre ces décalages par la figure suivante:</p>
-<figure class="align-center">
-<img alt="vigenere_2.png" src="../_images/vigenere_2.png" />
-</figure>
-<p>Le mot BONJOUR sera donc chiffré en OGVWGCE</p>
-<figure class="align-center">
-<img alt="vigenere_1.png" src="../_images/vigenere_1.png" />
-</figure>
-</div>
-<p class="rubric" id="dechiffrement-et-robustesse">Déchiffrement et robustesse</p>
-<p>Comme le chiffrement de César, il faut réaliser les décalages opposés pour chaque lettre constituant le mot clef.</p>
-<p>Plus difficile à déchiffrer que le chiffrement de César, il a résisté assez longtemps aux cryptanalistes (3 siècles environ) mais aujourd’hui un tel chiffrement ne résisterait pas très longtemps à un ordinateur et aux propriétés arithmétiques connues.</p>
+</li>
+</ol>
 </section>
 </section>
 
@@ -412,20 +372,20 @@ toutes les lettres.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="code_cesar.html"
+       href="tp_diffie_hellman.html"
        title="page précédente">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">précédent</p>
-        <p class="prev-next-title">Code César</p>
+        <p class="prev-next-title">TP : Méthode Diffie - Hellman</p>
       </div>
     </a>
     <a class="right-next"
-       href="chiffrement_vernam.html"
+       href="protocole_https.html"
        title="page suivante">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">suivant</p>
-        <p class="prev-next-title">Chiffrement de Vernam</p>
+        <p class="prev-next-title">Sécuriser une communication</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -445,9 +405,8 @@ toutes les lettres.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quelques-definitions">Quelques définitions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-chiffrement-de-cesar">Le chiffrement de César</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-chiffrement-de-vigenere">Le chiffrement de Vigenère</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaque-dite-homme-du-milieu">Attaque dite « Homme du milieu »</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#certificat">Certificat</a></li>
 </ul>
   </nav></div>
 
