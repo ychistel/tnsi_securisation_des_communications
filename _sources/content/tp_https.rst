@@ -1,7 +1,5 @@
-
-
 Protocole https
----------------
+================
 
 Le protocole HTTPS est l'association du protocole HTTP et du PROTOCOLE SSL/TLS.
 
@@ -10,7 +8,12 @@ Le protocole HTTPS est l'association du protocole HTTP et du PROTOCOLE SSL/TLS.
 
 Il est possible de mettre en place sur une même machine un serveur WEB et un client pour observer les requêtes du protocole HTTP et même du protocole HTTPS.
 
-.. rubric:: Travail préparatoire
+.. warning::
+
+   Ce TP ne peut se faire que sur une machine virtuelle linux.
+
+Travail préparatoire
+---------------------
 
 #. Dans Thonny, vous devez vous assurer de la présence du module ``flask`` qui permet de créer un serveur WEB et du module ``pyopenssl`` qui se charge du chiffrement et des certificats du protocole TLS.
 #. Créer un dossier de travail ``protocole`` contenant les dossiers ``templates`` et ``static``.
@@ -26,7 +29,7 @@ Il est possible de mettre en place sur une même machine un serveur WEB et un cl
 
 .. rubric:: Ajouter un fichier HTML
 
-#. Créer, dans le dossier ``templates``, une page WEB ``index.html`` contenant un titre de niveau 1 etun petit paragraphe.
+#. Créer, dans le dossier ``templates``, une page WEB ``index.html`` contenant un titre de niveau 1 et un petit paragraphe.
 #. Modifier la ligne 9 du fichier Python ``serveur.py`` par la ligne suivante:
 
    .. code-block:: python
